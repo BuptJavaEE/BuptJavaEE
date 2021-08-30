@@ -1,0 +1,69 @@
+* {
+    margin: 0;/*外边距离*/
+    padding: 0;/*内边距离*/
+    box-sizing: border-box;/*盒子大小即为盒子*/
+    font-family: sans-serif;/*字体*/
+}
+.rating {
+    padding: 40px;
+    display: flex;/*弹性盒子*/
+    justify-content:center ;/*body位于容器中心*/
+    align-items: center;/*其余所有元素也会向中心挤压（聚拢效果）*/
+}
+.rating{
+    position: relative;/*可变*/
+    display: flex;
+    flex-direction: row-reverse;/*横着布局*/
+}
+.rating input {
+    display: none; /* 隐藏radio按钮 */
+}
+.rating label{
+    position: relative;
+    width: 0; /*为了重合特效 宽度暂且设置为0*/
+    height: 45px;
+    cursor:pointer;
+    transition: 0.5s;
+    filter: grayscale(1);/*修改所有图片为灰白色*/
+    text-align: center;/*所有字体居中*/
+    opacity: 0;/*透明度*/
+}
+.rating:hover label{ /*为悬停标签*/
+    width: 55px;
+    opacity: 0.2;
+}
+.rating input:hover+label,/*加号为相邻选择器 选择hover了的lable元素*/
+.rating input:checked + label{/*加号为相邻选择器 选择checked了的lable元素*/
+    /* 悬停和选择时进行触发 */
+    /* 通过修改灰阶和透明度进行显示 */
+    filter: grayscale(0);
+    opacity: 1;
+    width: 55px;
+}
+img {
+    height: 100%;
+}
+/*图标下的文字排版设置 与图片排版大致同理 忽略不计*/
+.rating label h4{
+    font-size: 10px; /* 字体大小 */
+    padding-top: 10px;
+    /*font-weight: 500; !* 字体维度 *!*/
+    white-space: nowrap; /* 不换行 */
+    opacity: 0;
+    transform: translateY(-50px) scale(0); /* Y轴移动，放大 */
+    transition: 0.5s;
+}
+.rating input:hover + label h4,
+.rating input:checked + label h4{
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+}
+.text{
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*transform: translateX(-50);*/
+    /*width: 500px;*/
+    /*font-weight: 700;*/
+    /*letter-spacing: 2px;*/
+    /*text-align: center;*/
+}
