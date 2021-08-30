@@ -2,9 +2,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>智慧英语平台注册</title>
+		<title>协同写作平台注册</title>
 		<!--写base标签，永远固定相对路径跳转的结果-->
 		<base href="../../">
+		<!--登陆样式引入	-->
+		<link rel="stylesheet" href="static/css/style-login.css">
+
 		<script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>
 		<script type="text/javascript">
 			// 页面加载完成之后
@@ -48,34 +51,6 @@
 						return false;
 					}
 
-					// 邮箱验证：xxxxx@xxx.com
-					//1 获取邮箱里的内容
-					var emailText = $("#email").val();
-					//2 创建正则表达式对象
-					var emailPatt = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
-					//3 使用test方法验证是否合法
-					if (!emailPatt.test(emailText)) {
-						//4 提示用户
-						$("span.errorMsg").text("邮箱格式不合法！");
-
-						return false;
-					}
-
-					// 验证码：现在只需要验证用户已输入。因为还没讲到服务器。验证码生成。
-					var codeText = $("#code").val();
-
-					//去掉验证码前后空格
-					// alert("去空格前：["+codeText+"]")
-					codeText = $.trim(codeText);
-					// alert("去空格后：["+codeText+"]")
-
-					if (codeText == null || codeText == "") {
-						//4 提示用户
-						$("span.errorMsg").text("验证码不能为空！");
-
-						return false;
-					}
-
 					// 去掉错误信息
 					$("span.errorMsg").text("");
 
@@ -97,14 +72,55 @@
 	</head>
 	<body>
 		<div id="login_header">
-			<img class="logo_img" alt="" src="static/img/bupt.jpeg" width="90" height="90">
+			<img alt="" src="static/img/bupt.jpeg" width="90" height="90">
 		</div>
+		<div class="wrapper">
+			<div class="container">
+				<h1>注册账号</h1>
+				<div class="login_box">
+					<div class="form">
+						<div class="form">
+							<form action="regist" method="post">
+								<div style="padding: 20px">已经有了账号？<a href="pages/user/login.html">立即登陆</a></div>
+								<span style="color:greenyellow" class="errorMsg"></span>
+								<input class="itxt" type="text" placeholder="请输入用户名"
+									   value=""
+									   autocomplete="off" tabindex="1" name="username" id="username" />
 
-			<div class="login_banner">
+								<input class="itxt" type="password" placeholder="请输入密码"
+									   value=""
+									   autocomplete="off" tabindex="1" name="password" id="password" />
 
-				<div id="l_content">
-					<span class="login_word">欢迎注册</span>
+								<input class="itxt" type="password" placeholder="确认密码"
+									   value=""
+									   autocomplete="off" tabindex="1" name="repwd" id="repwd" />
+								<input class="itxt" type="text" placeholder="输入昵称"
+									   value=""
+									   autocomplete="off" tabindex="1" name="nikname" id="nikname" />
+								<input type="submit" value="注册" id="sub_btn" />
+							</form>
+					</div>
+
 				</div>
+
+
+
+			</div>
+			</div>
+
+			<ul class="bg-bubbles">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
 
 				<div id="content">
 					<div class="login_form">
@@ -113,50 +129,13 @@
 								<h1>注册智慧英语</h1>
 								<span class="errorMsg"></span>
 							</div>
-							<div class="form">
-								<form action="regist" method="post">
-									<label>用户名称：</label>
-									<input class="itxt" type="text" placeholder="请输入用户名"
-										   value="wzg168"
-										   autocomplete="off" tabindex="1" name="username" id="username" />
-									<br />
-									<br />
-									<label>用户密码：</label>
-									<input class="itxt" type="password" placeholder="请输入密码"
-										   value="123456"
-										   autocomplete="off" tabindex="1" name="password" id="password" />
-									<br />
-									<br />
-									<label>确认密码：</label>
-									<input class="itxt" type="password" placeholder="确认密码"
-										   value="123456"
-										   autocomplete="off" tabindex="1" name="repwd" id="repwd" />
-									<br />
-									<br />
-									<label>电子邮件：</label>
-									<input class="itxt" type="text" placeholder="请输入邮箱地址"
-										   value="wzg168@qq.com"
-										   autocomplete="off" tabindex="1" name="email" id="email" />
-									<br />
-									<br />
-									<label>身份：</label>
-									<input   type="radio"  name="identity" id="student" value="student" checked>学生
-									<input   type="radio" name="identity" id="teacher" value="teacher">老师
-									<br />
-									<br />
-									<label>验证码：</label>
-									<input class="itxt" type="text" name="code" style="width: 150px;" id="code" value="abcde"/>
-									<img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
-									<br />
-									<br />
-									<input type="submit" value="注册" id="sub_btn" />
-								</form>
-							</div>
+							<!--表单部分-->
 
 						</div>
 					</div>
-				</div>
-			</div>
+
+		<!--样式引入-->
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="static/script/script-login.js"></script>
 
 	</body>
 </html>
