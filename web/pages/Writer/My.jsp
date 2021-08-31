@@ -213,52 +213,55 @@
         localStorage.setItem('blog',JSON.stringify(commentblog))
         window.location.href="pages/Student/Comment.jsp"
     }
+    //缺servlet响应
+    function access(username,textno){
+        var passcard = {username:username,textno:textno,pass:true}
+    $.post("",JSON.stringify(passcard));
+
+    }
+    //缺servlet响应
+    function refuse(username,textno){
+        var passcard = {username:username,textno:textno,pass:false}
+        $.post("",JSON.stringify(passcard));
+    }
+    //缺协同写作绝对地址
+    function goWriter(textno){
+        window.location.href("")
+    }
     $(function(){
         $.getJSON("shownewsservlet",function (data) {
             //1.给用户引导；固定 2。给用户提示信息
             $.each(data,function (i,message) {
-                if (message.type=="comment") {
-                    //用户的message（type:信息类型）
-                    //个人主页，收到提示  提示他去评论对应作品
-                    var str = " <li>\n" +
-                        "                            <div>\n" +
-                        "                               "+"<time><span  class=\"label label-info\">作品互评</span></time>"+"您已经被分配到评论文章{"+message.title + "}点击按钮进行评论 \n"+"<br/>"+
-                        "<button class=\"btn btn-info btn-lg\" onclick='goComment(\""+message.title+"\",\""+message.content+"\",\""+"true"+"\")'><span class=\"glyphicon glyphicon-pencil\"></span>评论</button>"+
-                        "                            </div>\n" +
-                        "       </li>";
+
+                if (message.type=="pass") {
+                    //个人主页，收到消息提示，我的申请通过了 能加入别人小组
+                    var str = "<div class=\"alert status-success\">您有关文章"+message.title+"的协作申请已经通过</div>"
+                    $(".message").append(str);
+                }
+
+                else if (message.type=="suggest"){
+                    //个人主页，收到消息提示 有人给我的作品给出了建议
+                    var str = "<div class=\"alert status-primary\">有人对您的文章提出了建议，点我<button onclick='goComment(message.title,message.body,true)'>查看建议</button></div>"
                     $(".messages").append(str);
-                }else if (message.type=="commentfinished"){
-                    //个人主页，收到提示 我的作品已经被人评论完了
-                    var str = " <li>\n" +
-                        "                            <div>\n" +
-                        "                               "+"<time><span  class=\"label label-success\">作品互评</span></time>"+"您的文章{"+message.title + "}已经互评完毕，点击按钮查看结果 \n"+"<br/>"+
-                        "<button class=\"btn btn-success btn-lg\" onclick='goComment(\""+message.title+"\",\""+message.content+"\",\""+"false"+"\")'><span class=\"glyphicon glyphicon-search\"></span>查看</button>"+
-                        "                            </div>\n" +
-                        "       </li>";
-                    $(".messages").append(str);
-                }else if (message.type=="group"){
-                    //个人主页，收到提示 小组消息 上面那种组合方式真的垃圾下面换种好康的
-                    var strVar="";
-                    strVar += "<li>";
-                    strVar += "      <div>";
-                    strVar += "          <time><span  class=\"label label-default\">小组消息<\/span><\/time> ";
-                    strVar += "<span class=\"glyphicon glyphicon-user\">"+message.content;
-                    strVar += "<time><span class=\"glyphicon glyphicon-plus\">附加消息:"+message.extraInfo;
-                    strVar += "      <\/div>";
-                    strVar += "<\/li>";
+                }
+
+                else if (message.type=="apply"){
+                    //个人主页，收到提示 有人申请加入小组
+                    var strVar="<div class=\"alert status-secondary\">"+message.nickname+"申请加入您的"+message.title+"文章与您的小组一起写作<button onclick='access(\""+message.username+"\",\""+message.textno+"\")'>接受</button><button onclick='refuse(\""+message.username+"\",\""+message.textno+"\")'>拒绝</button></div>"
                     $(".messages").append(strVar);
-                }else if (message.type=="chatroom") {
-                    //个人主页，收到提示 小组消息 上面那种组合方式真的垃圾下面换种好康的
-                    var strVar = "";
-                    strVar += "<li>";
-                    strVar += "      <div>";
-                    strVar += "          <time><span  class=\"label label-primary\">聊天提醒<\/span><\/time> ";
-                    strVar += "<span class=\"glyphicon glyphicon-comment\">" + message.content;
-                    strVar += "<time><span class=\"glyphicon glyphicon-plus\">附加消息:" + message.extraInfo;
-                    strVar += "      <\/div>";
-                    strVar += "<\/li>";
+
+                }else if (message.type=="writing") {
+                    //个人主页，收到提示 小组消息 有人正在进行协同写作
+                    var strVar = "<div class=\"alert status-info\">"+message.nickname+"正在写作"+message.title+"文章，一起来吗？<button onclick='goWriter(\""+message.textno+"\")'>点我写作</button></div>";
                     $(".messages").append(strVar);
                 }
+
+                else if (message.type=="refuse") {
+                    //个人主页，收到提示 小组消息 您的申请被拒绝了
+                    var strVar = " <div class=\"alert status-error\">您关于文章"+message.title+"协同写作申请被拒绝了</div>";
+                    $(".messages").append(strVar);
+                }
+
             })
         }).then( function () {
             "use strict";
