@@ -11,6 +11,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <a href="pages/User/login.html">点我进入真正逻辑页面</a>
   </body>
 </html>
