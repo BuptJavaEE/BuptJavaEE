@@ -1,83 +1,300 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - Welcome</title>
-  <!--  基础路径-->
-  <base href="../../">
-  <!--  页面样式导入-->
-  <link rel="stylesheet" href="static/css/style-welcome.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8款纯CSS3搜索框</title>
 
+  <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #494A5F;
+      font-weight: 500;
+      font-family: "Microsoft YaHei","宋体","Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+    }
+
+    #container {
+      width: 500px;
+      height: 820px;
+      margin: 0 auto;
+    }
+    div.search {padding: 30px 0;}
+
+    form {
+      position: relative;
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    input, button {
+      border: none;
+      outline: none;
+    }
+
+    input {
+      width: 100%;
+      height: 42px;
+      padding-left: 13px;
+    }
+
+    button {
+      height: 42px;
+      width: 42px;
+      cursor: pointer;
+      position: absolute;
+    }
+
+    /*搜索框1*/
+    .bar1 {background: #A3D0C3;}
+    .bar1 input {
+      border: 2px solid #7BA7AB;
+      border-radius: 5px;
+      background: #F9F0DA;
+      color: #9E9C9C;
+    }
+    .bar1 button {
+      top: 0;
+      right: 0;
+      background: #7BA7AB;
+      border-radius: 0 5px 5px 0;
+    }
+    .bar1 button:before {
+      content: "\f002";
+      font-family: FontAwesome;
+      font-size: 16px;
+      color: #F9F0DA;
+    }
+
+    /*搜索框2*/
+    .bar2 {background: #DABB52;}
+    .bar2 input, .bar2 button {
+      border-radius: 3px;
+    }
+    .bar2 input {
+      background: #F9F0DA;
+    }
+    .bar2 button {
+      height: 26px;
+      width: 26px;
+      top: 8px;
+      right: 8px;
+      background: #F15B42;
+    }
+    .bar2 button:before {
+      content: "\f105";
+      font-family: FontAwesome;
+      color: #F9F0DA;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /*搜索框3*/
+    .bar3 {background: #F9F0DA;}
+    .bar3 form {background: #A3D0C3;}
+    .bar3 input, .bar3 button {
+      background: transparent;
+    }
+    .bar3 button {
+      top: 0;
+      right: 0;
+    }
+    .bar3 button:before {
+      content: "\f002";
+      font-family: FontAwesome;
+      font-size: 16px;
+      color: #F9F0DA;
+    }
+
+    /*搜索框4*/
+    .bar4 {background: #F15B42;}
+    .bar4 form {
+      background: #F9F0DA;
+      border-bottom: 2px solid #BE290E;
+    }
+    .bar4 input, .bar4 button {
+      background: transparent;
+    }
+    .bar4 button {
+      top: 0;
+      right: 0;
+    }
+    .bar4 button:before {
+      content: "\f178";
+      font-family: FontAwesome;
+      font-size: 20px;
+      color: #be290e;
+    }
+
+    /*搜索框5*/
+    .bar5 {background: #683B4D;}
+    .bar5 input, .bar5 button {
+      background: transparent;
+    }
+    .bar5 input {
+      border: 2px solid #F9F0DA;
+    }
+    .bar5 button {
+      top: 0;
+      right: 0;
+    }
+    .bar5 button:before {
+      content: "\f002";
+      font-family: FontAwesome;
+      font-size: 16px;
+      color: #F9F0DA;
+    }
+    .bar5 input:focus {
+      border-color: #311c24
+    }
+
+    /*搜索框6*/
+    .bar6 {background: #F9F0DA;}
+    .bar6 input {
+      border: 2px solid #c5464a;
+      border-radius: 5px;
+      background: transparent;
+      top: 0;
+      right: 0;
+    }
+    .bar6 button {
+      background: #c5464a;
+      border-radius: 0 5px 5px 0;
+      width: 60px;
+      top: 0;
+      right: 0;
+    }
+    .bar6 button:before {
+      content: "搜索";
+      font-size: 13px;
+      color: #F9F0DA;
+    }
+
+
+    /*搜索框7*/
+    .bar7 {background: #7BA7AB;}
+    .bar7 form {
+      height: 42px;
+    }
+    .bar7 input {
+      width: 250px;
+      border-radius: 42px;
+      border: 2px solid #324B4E;
+      background: #F9F0DA;
+      transition: .3s linear;
+      float: right;
+    }
+    .bar7 input:focus {
+      width: 300px;
+    }
+    .bar7 button {
+      background: none;
+      top: -2px;
+      right: 0;
+    }
+    .bar7 button:before{
+      content: "\f002";
+      font-family: FontAwesome;
+      color: #324b4e;
+    }
+
+    /*搜索框8*/
+    .bar8 {background: #B46381;}
+    .bar8 form {
+      height: 42px;
+    }
+    .bar8 input {
+      width: 0;
+      padding: 0 42px 0 15px;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      transition: .3s linear;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+    }
+    .bar8 input:focus {
+      width: 300px;
+      z-index: 1;
+      border-bottom: 2px solid #F9F0DA;
+    }
+    .bar8 button {
+      background: #683B4D;
+      top: 0;
+      right: 0;
+    }
+    .bar8 button:before {
+      content: "\f002";
+      font-family: FontAwesome;
+      font-size: 16px;
+      color: #F9F0DA;
+    }
+  </style>
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<!-- google fonts lato -->
-<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<div id="container">
+  <div class="search bar1">
+    <form>
+      <input type="text" placeholder="请输入您要搜索的内容...">
+      <button type="submit"></button>
+    </form>
+  </div>
 
+  <div class="search bar2">
+    <form>
+      <input type="text" placeholder="请输入您要搜索的内容...">
+      <button type="submit"></button>
+    </form>
+  </div>
 
-<a href="pages/Writer/index.html#fake" class="enter">ENTER</a>
-<div class="page">
-  <div class="main">
+  <div class="search bar3">
+    <form>
+      <input type="text" placeholder="请输入您要搜索的内容...">
+      <button type="submit"></button>
+    </form>
+  </div>
 
+  <div class="search bar4">
+    <form>
+      <input type="text" placeholder="请输入您要搜索的内容...">
+      <button type="submit"></button>
+    </form>
+  </div>
 
+  <div class="search bar5">
+    <form>
+      <input type="text" placeholder="请输入您要搜索的内容...">
+      <button type="submit"></button>
+    </form>
+  </div>
 
-    <!--  Content of page -->
-    <header class="clearfix">
-      <div class='container'>
-        <div class="intro">
-          <a href="/grid"><h1>欢迎</h1></a>
-          <p>To my World</p>
-        </div>
-      </div>
-    </header>
+  <div class="search bar6">
+    <form>
+      <input type="text" placeholder="请输入您要搜索的内容...">
+      <button type="submit"></button>
+    </form>
+  </div>
 
+  <div class="search bar7">
+    <form>
+      <input type="text" placeholder="请输入您要搜索的内容...">
+      <button type="submit"></button>
+    </form>
+  </div>
 
-       <section class="words">
-      <div class="container">
-        <h3>Et quidem, inquit, vehementer errat;</h3>
-
-        <p>Lorem ipsu</p>
-      </div>
-       </section>
-
-      <section  class="clearfix"></section>
-
-      <section class="words">
-        <div class="container">
-          <h3>Quid est enim aliud esse versutum?</h3>
-
-          <p>Ostendit pedes et pectus. Omnis enim est natura diligens sui. <a href='http://loripsum.net/' target='_blank'>Cur id non ita fit?</a> <a href='http://loripsum.net/' target='_blank'>Videamus animi partes, quarum est conspectus illustrior;</a> Collige omnia, quae soletis: Praesidium amicorum. Haec et tu ita posuisti, et verba vestra sunt. An est aliquid per se ipsum flagitiosum, etiamsi nulla comitetur infamia? <a href='http://loripsum.net/' target='_blank'>Nos commodius agimus.</a> </p>
-
-          <h2>Quid ei reliquisti, nisi te, quoquo modo loqueretur, intellegere, quid diceret?</h2>
-
-          <p>Quo plebiscito decreta a senatu est consuli quaestio Cn. Hoc etsi multimodis reprehendi potest, tamen accipio, quod dant. Quare obscurentur etiam haec, quae secundum naturam esse dicimus, in vita beata; Iis igitur est difficilius satis facere, qui se Latina scripta dicunt contemnere. Ita multa dicunt, quae vix intellegam. Quo tandem modo? Non semper, inquam; Quae qui non vident, nihil umquam magnum ac cognitione dignum amaverunt. Cur fortior sit, si illud, quod tute concedis, asperum et vix ferendum putabit? </p>
-
-
-          <blockquote cite='http://loripsum.net'>
-            Te autem hortamur omnes, currentem quidem, ut spero, ut eos, quos novisse vis, imitari etiam velis.
-          </blockquote>
-        </div>
-        </section>    
-
-        <section  class="clearfix"></section>
-
-        <section class="words">
-          <div class="container">
-            <p>Quasi vero, inquit, perpetua oratio rhetorum solum, non etiam philosophorum sit. Sed tamen est aliquid, quod nobis non liceat, liceat illis. Si enim ad populum me vocas, eum. Quod autem ratione actum est, id officium appellamus. Apud ceteros autem philosophos, qui quaesivit aliquid, tacet; Longum est enim ad omnia respondere, quae a te dicta sunt. </p>
-
-            <p>Vitiosum est enim in dividendo partem in genere numerare. Eaedem res maneant alio modo. Quae in controversiam veniunt, de iis, si placet, disseramus. Videsne quam sit magna dissensio? Quos quidem tibi studiose et diligenter tractandos magnopere censeo. Si quicquam extra virtutem habeatur in bonis. Sed nimis multa. </p>
-
-          </div>
-        </section>
-        <!-- / Content of page -->
-
-
-      </div>
-    </div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script  src="static/script/script-welcome.js"></script>
-
+  <div class="search bar8">
+    <form>
+      <input type="text" placeholder="请输入您要搜索的内容...">
+      <button type="submit"></button>
+    </form>
+  </div>
+</div>
 </body>
 </html>

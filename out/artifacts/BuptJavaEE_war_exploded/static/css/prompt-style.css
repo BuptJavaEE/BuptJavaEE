@@ -7,11 +7,10 @@
 }
 
 body {
-  font: normal 16px/1.5 "Helvetica Neue", sans-serif;
-  color: #fff;
-  overflow-x: hidden;
-  padding-bottom: 50px;
-}
+   font: normal 16px/1.5 "Helvetica Neue", sans-serif;
+   color: #fff;
+   padding-bottom: 50px;
+ }
 
 
 /* INTRO SECTION
@@ -19,11 +18,11 @@ body {
 
 .intro {
   background: #e3e3e3;
-  padding: 100px 0;
+  padding:  0;
 }
 
 .container {
-  width: 90%;
+  width: 60%;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;

@@ -120,7 +120,8 @@
             search:""
         },
         created(){
-            this.$http.get("showblogsevlet")
+            //测试数据网址 之后换成后端servlet
+            this.$http.get("https://jsonplaceholder.typicode.com/posts/")
                 .then(function (data) {
                     this.blogs = data.body.slice(0,10);
                     console.log(this.blogs);

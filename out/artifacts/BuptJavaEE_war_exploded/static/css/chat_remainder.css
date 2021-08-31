@@ -16,7 +16,7 @@ body {
   box-sizing: border-box;
 }
 
-main {
+remain {
   --neutralShade1: #f2f2f2;
   --neutralShade2: #e8e9e9;
   --neutralShade3: #d1d3d4;
@@ -33,7 +33,7 @@ main {
 }
 
 /*overall layout*/
-main {
+remain {
   width: 90%;
   max-width: 1050px;
   margin: 3em auto 0;
@@ -45,10 +45,10 @@ main {
   text-align: left;
 }
 
-main > section {
+remain > section {
   position: relative;
 }
-main > section > h6 {
+remain > section > h6 {
   color: var(--accentColor);
   background: var(--canvasColor);
   position: absolute;
@@ -56,7 +56,7 @@ main > section > h6 {
   left: 20px;
   padding: 0 10px;
 }
-main > section h6.subheader {
+remain > section h6.subheader {
   color: var(--grayColor);
   margin-top: 20px;
   margin-bottom: 20px;
@@ -149,7 +149,7 @@ main > section h6.subheader {
   grid: 80px 45px min-content/repeat(5, minmax(50px, 1fr));
   margin-bottom: 1em;
 }
-.palette__main {
+.palette__remain {
   grid-column: span 5;
 }
 .palette h5 {
@@ -157,22 +157,22 @@ main > section h6.subheader {
   text-align: left;
   padding: 10px 0;
 }
-.palette.main div:nth-child(1) {
+.palette.remain div:nth-child(1) {
   background: var(--primaryColor);
 }
-.palette.main div:nth-child(2) {
+.palette.remain div:nth-child(2) {
   background: var(--primaryShade1);
 }
-.palette.main div:nth-child(3) {
+.palette.remain div:nth-child(3) {
   background: var(--primaryShade2);
 }
-.palette.main div:nth-child(4) {
+.palette.remain div:nth-child(4) {
   background: var(--primaryShade3);
 }
-.palette.main div:nth-child(5) {
+.palette.remain div:nth-child(5) {
   background: var(--primaryShade4);
 }
-.palette.main div:nth-child(6) {
+.palette.remain div:nth-child(6) {
   background: var(--primaryShade5);
 }
 .palette.secondary div:nth-child(1) {
@@ -543,20 +543,20 @@ input:disabled ~ * {
 a.button,
 input.button,
 button {
-  outline: none;
-  width: 100%;
-  text-align: center;
-  display: inline-block;
-  border: none;
-  font: 500 16px/1 "Poppins", sans-serif;
-  padding: 20px;
-  cursor: pointer;
-  border-radius: var(--borderRadius);
-  background: var(--primaryColor);
-  color: var(--backgroundColor);
-  position: relative;
-  top: 0;
-  transition: 0.2s ease;
+  /*outline: none;*/
+  /*width: 100%;*/
+  /*text-align: center;*/
+  /*display: inline-block;*/
+  /*border: none;*/
+  /*font: 500 16px/1 "Poppins", sans-serif;*/
+  /*padding: 20px;*/
+  /*cursor: pointer;*/
+  /*border-radius: var(--borderRadius);*/
+  /*background: var(--primaryColor);*/
+  /*color: var(--backgroundColor);*/
+  /*position: relative;*/
+  /*top: 0;*/
+  /*transition: 0.2s ease;*/
 }
 a.button:hover, a.button.hover,
 input.button:hover,
@@ -976,15 +976,15 @@ select option {
   }
 }
 @media (max-width: 992px) {
-  main {
+  remain {
     grid: repeat(9, fit-content(300px))/100%;
     grid-template-areas: "colors" "typography" "buttons" "links" "inputs" "badges" "tooltips" "alerts" "loading";
   }
-  main > section:not(:last-child) {
+  remain > section:not(:last-child) {
     border: 1px solid var(--accentColor);
     border-width: 0 0 1px;
   }
-  main > section:last-child {
+  remain > section:last-child {
     border-width: 0;
   }
 
@@ -1031,7 +1031,7 @@ input.variation + label {
 #bluepurple + label {
   background: linear-gradient(to left, #673ab7 50%, #03a9f4 50%);
 }
-#bluepurple:checked ~ main {
+#bluepurple:checked ~ remain {
   --backgroundColor: #fff;
   --foregroundColor: #111;
   --primaryColor: #03a9f4;
@@ -1069,7 +1069,7 @@ input.variation + label {
 #sunset + label {
   background: linear-gradient(to right, #ff9557 50%, #ffcc67 50%);
 }
-#sunset:checked ~ main {
+#sunset:checked ~ remain {
   --canvasColor: #f9f9f9;
   --backgroundColor: #fff;
   --foregroundColor: #111;
@@ -1108,7 +1108,7 @@ input.variation + label {
 #godiva + label {
   background: linear-gradient(to right, #a05793 50%, #a3d858 50%);
 }
-#godiva:checked ~ main {
+#godiva:checked ~ remain {
   --canvasColor: #f9f9f9;
   --backgroundColor: #fff;
   --foregroundColor: #111;
@@ -1147,7 +1147,7 @@ input.variation + label {
 #dark + label {
   background: linear-gradient(to right, #367bc3 50%, #38bfa7 50%);
 }
-#dark:checked ~ main {
+#dark:checked ~ remain {
   --canvasColor: #2a313b;
   --backgroundColor: #2a313b;
   --foregroundColor: #ebe8d8;
@@ -1184,17 +1184,17 @@ input.variation + label {
   color: #f1f2eb;
   border-color: #f1f2eb;
 }
-#dark:checked ~ main > section {
+#dark:checked ~ remain > section {
   border-color: #f1f2eb;
 }
-#dark:checked ~ main > section > h6 {
+#dark:checked ~ remain > section > h6 {
   color: #f1f2eb;
 }
 
 #pinkaru + label {
   background: linear-gradient(to right, #f95794 50%, #323da5 50%);
 }
-#pinkaru:checked ~ main {
+#pinkaru:checked ~ remain {
   border-color: #fff;
   --canvasColor: #2a313b;
   --backgroundColor: #2a313b;
@@ -1230,107 +1230,107 @@ input.variation + label {
   --accent3Shade2: #df2b50;
   --accent3Shade1: #b32340;
 }
-#pinkaru:checked ~ main > section {
+#pinkaru:checked ~ remain > section {
   border-color: #fff;
 }
-#pinkaru:checked ~ main > section > h6 {
+#pinkaru:checked ~ remain > section > h6 {
   color: #fff;
 }
 
-#dark:checked ~ main h6.subheader,
-#dark:checked ~ main .feedback-form,
-#pinkaru:checked ~ main h6.subheader,
-#pinkaru:checked ~ main .feedback-form {
+#dark:checked ~ remain h6.subheader,
+#dark:checked ~ remain .feedback-form,
+#pinkaru:checked ~ remain h6.subheader,
+#pinkaru:checked ~ remain .feedback-form {
   color: var(--neutralShade1);
 }
-#dark:checked ~ main ::placeholder,
-#pinkaru:checked ~ main ::placeholder {
+#dark:checked ~ remain ::placeholder,
+#pinkaru:checked ~ remain ::placeholder {
   color: var(--neutralShade4);
   opacity: 1;
 }
-#dark:checked ~ main :-ms-input-placeholder,
-#pinkaru:checked ~ main :-ms-input-placeholder {
+#dark:checked ~ remain :-ms-input-placeholder,
+#pinkaru:checked ~ remain :-ms-input-placeholder {
   color: var(--neutralShade4);
 }
-#dark:checked ~ main ::-ms-input-placeholder,
-#pinkaru:checked ~ main ::-ms-input-placeholder {
+#dark:checked ~ remain ::-ms-input-placeholder,
+#pinkaru:checked ~ remain ::-ms-input-placeholder {
   color: var(--neutralShade4);
 }
-#dark:checked ~ main .tooltip:after,
-#pinkaru:checked ~ main .tooltip:after {
+#dark:checked ~ remain .tooltip:after,
+#pinkaru:checked ~ remain .tooltip:after {
   color: var(--backgroundColor);
 }
-#dark:checked ~ main a.button,
-#dark:checked ~ main input.button,
-#dark:checked ~ main button,
-#dark:checked ~ main .tooltip.dark:after,
-#pinkaru:checked ~ main a.button,
-#pinkaru:checked ~ main input.button,
-#pinkaru:checked ~ main button,
-#pinkaru:checked ~ main .tooltip.dark:after {
+#dark:checked ~ remain a.button,
+#dark:checked ~ remain input.button,
+#dark:checked ~ remain button,
+#dark:checked ~ remain .tooltip.dark:after,
+#pinkaru:checked ~ remain a.button,
+#pinkaru:checked ~ remain input.button,
+#pinkaru:checked ~ remain button,
+#pinkaru:checked ~ remain .tooltip.dark:after {
   color: var(--foregroundColor);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-#dark:checked ~ main .button:active, #dark:checked ~ main .button.active,
-#pinkaru:checked ~ main .button:active,
-#pinkaru:checked ~ main .button.active {
+#dark:checked ~ remain .button:active, #dark:checked ~ remain .button.active,
+#pinkaru:checked ~ remain .button:active,
+#pinkaru:checked ~ remain .button.active {
   background: var(--primaryShade1);
 }
-#dark:checked ~ main .button.secondary:active, #dark:checked ~ main .button.secondary.active,
-#pinkaru:checked ~ main .button.secondary:active,
-#pinkaru:checked ~ main .button.secondary.active {
+#dark:checked ~ remain .button.secondary:active, #dark:checked ~ remain .button.secondary.active,
+#pinkaru:checked ~ remain .button.secondary:active,
+#pinkaru:checked ~ remain .button.secondary.active {
   background: var(--secondaryShade1);
 }
-#dark:checked ~ main .button.accent,
-#pinkaru:checked ~ main .button.accent {
+#dark:checked ~ remain .button.accent,
+#pinkaru:checked ~ remain .button.accent {
   background: var(--accentShade2);
 }
-#dark:checked ~ main .button.accent:active,
-#pinkaru:checked ~ main .button.accent:active {
+#dark:checked ~ remain .button.accent:active,
+#pinkaru:checked ~ remain .button.accent:active {
   background: var(--accentShade1);
 }
-#dark:checked ~ main .button.accent2,
-#pinkaru:checked ~ main .button.accent2 {
+#dark:checked ~ remain .button.accent2,
+#pinkaru:checked ~ remain .button.accent2 {
   background: var(--accent2Shade2);
 }
-#dark:checked ~ main .button.accent2:active,
-#pinkaru:checked ~ main .button.accent2:active {
+#dark:checked ~ remain .button.accent2:active,
+#pinkaru:checked ~ remain .button.accent2:active {
   background: var(--accent2Shade1);
 }
-#dark:checked ~ main .button.accent3,
-#pinkaru:checked ~ main .button.accent3 {
+#dark:checked ~ remain .button.accent3,
+#pinkaru:checked ~ remain .button.accent3 {
   background: var(--accent3Shade2);
 }
-#dark:checked ~ main .button.accent3:active,
-#pinkaru:checked ~ main .button.accent3:active {
+#dark:checked ~ remain .button.accent3:active,
+#pinkaru:checked ~ remain .button.accent3:active {
   background: var(--accent3Shade1);
 }
-#dark:checked ~ main a.link,
-#pinkaru:checked ~ main a.link {
+#dark:checked ~ remain a.link,
+#pinkaru:checked ~ remain a.link {
   color: var(--neutralShade2);
 }
-#dark:checked ~ main a.link:hover, #dark:checked ~ main a.link.hover,
-#pinkaru:checked ~ main a.link:hover,
-#pinkaru:checked ~ main a.link.hover {
+#dark:checked ~ remain a.link:hover, #dark:checked ~ remain a.link.hover,
+#pinkaru:checked ~ remain a.link:hover,
+#pinkaru:checked ~ remain a.link.hover {
   color: var(--neutralShade1);
   border-bottom: 2px solid;
 }
-#dark:checked ~ main a.link.primary,
-#pinkaru:checked ~ main a.link.primary {
+#dark:checked ~ remain a.link.primary,
+#pinkaru:checked ~ remain a.link.primary {
   color: var(--primaryShade4);
 }
-#dark:checked ~ main a.link.primary:hover, #dark:checked ~ main a.link.primary.hover,
-#pinkaru:checked ~ main a.link.primary:hover,
-#pinkaru:checked ~ main a.link.primary.hover {
+#dark:checked ~ remain a.link.primary:hover, #dark:checked ~ remain a.link.primary.hover,
+#pinkaru:checked ~ remain a.link.primary:hover,
+#pinkaru:checked ~ remain a.link.primary.hover {
   color: var(--primaryShade5);
 }
-#dark:checked ~ main a.link.secondary,
-#pinkaru:checked ~ main a.link.secondary {
+#dark:checked ~ remain a.link.secondary,
+#pinkaru:checked ~ remain a.link.secondary {
   color: var(--secondaryShade4);
 }
-#dark:checked ~ main a.link.secondary:hover, #dark:checked ~ main a.link.secondary.hover,
-#pinkaru:checked ~ main a.link.secondary:hover,
-#pinkaru:checked ~ main a.link.secondary.hover {
+#dark:checked ~ remain a.link.secondary:hover, #dark:checked ~ remain a.link.secondary.hover,
+#pinkaru:checked ~ remain a.link.secondary:hover,
+#pinkaru:checked ~ remain a.link.secondary.hover {
   color: var(--secondaryShade5);
 }
 

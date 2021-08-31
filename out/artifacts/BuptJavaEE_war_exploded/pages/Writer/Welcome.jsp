@@ -16,7 +16,13 @@
     <!--  页面样式导入-->
     <link rel="stylesheet" href="static/css/style-welcome.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-
+    <style>
+        img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
 <!-- partial:index.partial.html -->
@@ -34,7 +40,7 @@
         <header class="clearfix">
             <div class='container'>
                 <div class="intro">
-                    <a href="/grid"><h1>让创作更加美好</h1></a>
+                    <a href="pages/Writer/My.jsp"><h1>让创作更加美好</h1></a>
                     <p></p>
                 </div>
             </div>

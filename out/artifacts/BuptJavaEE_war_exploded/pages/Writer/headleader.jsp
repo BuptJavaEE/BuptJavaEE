@@ -1,4 +1,4 @@
-<%--
+<%@ page import="pojo.User" %><%--
   Created by IntelliJ IDEA.
   User: tigers
   Date: 2021/7/26
@@ -21,23 +21,21 @@
 <%
     User StudentUser=(User)request.getSession().getAttribute("User");
 %>
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<abc class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <a href=" " class="navbar-brand">智慧英语协同写作学生端</a >
+            <a href=" " class="navbar-brand">协同写作平台</a >
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="http://47.94.108.20:8080/BuptCreationEE/pages/Student/My.jsp">我的&nbsp;</a ></li>
+                <li><a href="http://localhost:8080/BuptJavaEE_war_exploded/pages/Writer/My.jsp">我的&nbsp;</a ></li>
                 <li><a href="http://47.94.108.20:9001?name=<%=StudentUser.getUsername()%>">协同写作</a ></li>
                 <li><a href="http://47.94.108.20:8080/BuptCreationEE/pages/Student/Showblog.jsp">作品评论</a ></li>
                 <li><a href="http://47.94.108.20:8080/BuptCreationEE/pages/Student/ChatRoom.jsp">聊天室</a ></li>
             </ul>
         </div>
     </div>
-</nav>
-<br/>
-<br/>
+</abc>
 <%--动态显示高亮--%>
 <script>
     $('.nav').find('a').each(function () {
