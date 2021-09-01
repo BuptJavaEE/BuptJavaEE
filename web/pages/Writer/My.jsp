@@ -236,7 +236,7 @@
         window.location.href("")
     }
     $(function(){
-        $.getJSON("shownewsservlet",function (data) {
+        $.getJSON("showmessageservlet",function (data) {
             //1.给用户引导；固定 2。给用户提示信息
             $.each(data,function (i,message) {
 
@@ -316,7 +316,7 @@
                 test:"success"
             },
             created(){
-                this.$http.get('https://jsonplaceholder.typicode.com/posts/').then(function(data){
+                this.$http.get('showarticleservlet').then(function(data){
                     this.blogs = data.body.slice(0,10);
                     console.log(this.blogs);
                 })
