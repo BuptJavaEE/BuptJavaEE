@@ -16,7 +16,11 @@ import java.util.List;
  * @date 2021-08-31-16
  */
 public class MessageServiceImpl implements MessageService {
-
+    /**
+     * 加载消息（直接调用MessageDao里的函数）
+     * @param username
+     * @return
+     */
     @Override
     public String loadMessage(String username) {
         MessageDao messageDao = new MessageDaoImpl();
@@ -24,6 +28,10 @@ public class MessageServiceImpl implements MessageService {
         return new Gson().toJson(list);
     }
 
+    /**
+     * 删除消息（直接调用MessageDao里的函数）
+     * @param username
+     */
     @Override
     public void removeMessage(String username) {
         MessageDao messageDao = new MessageDaoImpl();

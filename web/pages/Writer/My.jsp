@@ -13,7 +13,8 @@
     <base href="../../">
     <!--提示表单样式CSS  -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,500,500i,700" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css'><link rel="stylesheet" href="static/css/chat_remainder.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css'>
+    <link rel="stylesheet" href="static/css/chat_remainder.css">
     <!--    vue-基础包导入-->
     <script src="static/vue/vue.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
@@ -195,11 +196,12 @@
         </div>
     </main>
 <%--消息推送端--%>
-    <aside>
+    <aside style="overflow-y: scroll">
         <br/>
         <br/>
         <p class="message">消息提示</p>
-            <section class="alerts" style="width: 100%">
+
+            <section class="alerts">
                 <div class="alert status-primary">有人对您的文章提出了建议，点我<a>查看建议</a></div>
                 <div class="alert status-secondary">xx申请加入您的xx项目与您一起写作<a>查看申请</a></div>
                 <div class="alert status-info">xx正在写作xx文章，一起来吗？<a>点我写作</a></div>
@@ -238,69 +240,43 @@
     $(function(){
         $.getJSON("showmessageservlet",function (data) {
             //1.给用户引导；固定 2。给用户提示信息
+            console.log(data)
             $.each(data,function (i,message) {
-
+                console.log(message)
                 if (message.type=="pass") {
                     //个人主页，收到消息提示，我的申请通过了 能加入别人小组
                     var str = "<div class=\"alert status-success\">您有关文章"+message.title+"的协作申请已经通过</div>"
-                    $(".message").append(str);
+                    $(".alerts").append(str);
                 }
 
                 else if (message.type=="suggest"){
                     //个人主页，收到消息提示 有人给我的作品给出了建议
                     var str = "<div class=\"alert status-primary\">有人对您的文章提出了建议，点我<button onclick='goComment(message.title,message.body,true)'>查看建议</button></div>"
-                    $(".messages").append(str);
+                    $(".alerts").append(str);
                 }
 
                 else if (message.type=="apply"){
                     //个人主页，收到提示 有人申请加入小组
                     var strVar="<div class=\"alert status-secondary\">"+message.nickname+"申请加入您的"+message.title+"文章与您的小组一起写作<button onclick='access(\""+message.username+"\",\""+message.textno+"\")'>接受</button><button onclick='refuse(\""+message.username+"\",\""+message.textno+"\")'>拒绝</button></div>"
-                    $(".messages").append(strVar);
+                    $(".alerts").append(strVar);
 
                 }else if (message.type=="writing") {
                     //个人主页，收到提示 小组消息 有人正在进行协同写作
                     var strVar = "<div class=\"alert status-info\">"+message.nickname+"正在写作"+message.title+"文章，一起来吗？<button onclick='goWriter(\""+message.textno+"\")'>点我写作</button></div>";
-                    $(".messages").append(strVar);
+                    $(".alerts").append(strVar);
                 }
 
                 else if (message.type=="refuse") {
                     //个人主页，收到提示 小组消息 您的申请被拒绝了
                     var strVar = " <div class=\"alert status-error\">您关于文章"+message.title+"协同写作申请被拒绝了</div>";
-                    $(".messages").append(strVar);
+                    $(".alerts").append(strVar);
                 }
 
             })
         }).then( function () {
-            "use strict";
-
-            // define variables
-            var items = document.querySelectorAll(".timeline li");
-
-            // check if an element is in viewport
-            // http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
-            function isElementInViewport(el) {
-                var rect = el.getBoundingClientRect();
-                return (
-                    rect.top >= 0 &&
-                    rect.left >= 0 &&
-                    rect.bottom <=
-                    (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-                );
-            }
-
-            function callbackFunc() {
-                for (var i = 0; i < items.length; i++) {
-                    if (isElementInViewport(items[i])) {
-                        items[i].classList.add("in-view");
-                    }
-                }
-            }
-
-            // listen for events
-            window.addEventListener("load", callbackFunc);
-            window.addEventListener("resize", callbackFunc);
-            window.addEventListener("scroll", callbackFunc);
+            $(".alert").on("click", function() {
+                $(this).hide("slow");
+            });
         })
     })
 </script>
