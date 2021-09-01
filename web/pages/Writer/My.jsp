@@ -91,6 +91,13 @@
             font-size: 16px;
             color: #F9F0DA;
         }
+
+        /*高亮关键字*/
+        .highlight {
+            color: #91b7de;
+            font-family:STFangsong;
+            font-size: 30px;
+        }
         /*消息提示美化*/
         .message {
             color: #ecf0f1;
@@ -179,7 +186,7 @@
             <%-- 具体博客           --%>
                 <blog class="single-blog" v-for="blog in filterblogs">
                     <div class="blog">
-                    <h2>{{blog.title}}</h2>
+                    <h2 v-html="highlight(blog.title)"></h2>
                     <br/>
                     <article>{{blog.body|snippet}}</article>
                         <button class="butt" v-on:click="goComment(blog.title,blog.body)"><span class="glyphicon glyphicon-file"></span>查看</button>
@@ -300,6 +307,7 @@
 
 <%--Vue查找模块--%>
     <script>
+
         var vm = new Vue({
             el:'#show_blogs',
             data:{
@@ -314,6 +322,11 @@
                 })
             },
             methods: {
+                highlight(value){
+                    val=value.replace(this.search,"<span class=highlight>"+this.search+"</span>")
+                    return val;
+                }
+                ,
                 goComment(title, body) {
                     commentblog = {title: title, content: body}
                     localStorage.setItem('blog', JSON.stringify(commentblog))
@@ -326,8 +339,22 @@
                       return blog.title.match(this.search);
                   })
               }
-            }
+            },
+            //局部过滤器高亮搜索框
+            // filters: {
+            //     highlight: function (value,keyword) {
+            //
+            //        console.log(keyword);
+            //         if (keyword!="") {
+            //             let reg = new RegExp(keyword,'g')//g代表全部
+            //             return value.replace(reg, '<span class="highlight">' + keyword + '</span>')
+            //         }else {
+            //             return value
+            //         }
+            //     }
+            // }
         })
+        //省略过长的文本
         Vue.filter("snippet",function(value){
             return value.slice(0,100)+"..."
         })

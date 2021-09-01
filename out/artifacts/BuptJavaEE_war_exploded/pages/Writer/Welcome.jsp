@@ -10,7 +10,7 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - Welcome</title>
+    <title>欢迎页面</title>
     <!--  基础路径-->
     <base href="../../">
     <!--  页面样式导入-->
