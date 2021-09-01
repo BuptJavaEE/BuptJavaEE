@@ -10,6 +10,7 @@ import utils.MongoDao;
 import utils.MongoDaoImpl;
 import utils.MongoHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -25,18 +26,18 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User queryUserByUsername(String username) {
-        List<Map<String, Object>> list = null;
-        User user = null;
+        List<Map<String, Object>> list = new ArrayList<>();
+        User user = new User();
         try {
-        MongoDao mongoDao = new MongoDaoImpl();
-        MongoDatabase db = MongoHelper.getMongoDataBase();
-        BasicDBObject usernameObj = new BasicDBObject("username", username);
-        String table = "user";
-        list = mongoDao.queryByDoc(db, table, usernameObj);
-        if(list.size()==1){
-            Map<String,Object> map = list.get(0);
-            String json = new Gson().toJson(map);
-            user = new Gson().fromJson(json,User.class);
+            MongoDao mongoDao = new MongoDaoImpl();
+            MongoDatabase db = MongoHelper.getMongoDataBase();
+            BasicDBObject usernameObj = new BasicDBObject("username", username);
+            String table = "user";
+            list = mongoDao.queryByDoc(db, table, usernameObj);
+            if(list.size()==1){
+                Map<String,Object> map = list.get(0);
+                String json = new Gson().toJson(map);
+                user = new Gson().fromJson(json,User.class);
         }
         } catch (Exception e) {
             e.printStackTrace();
