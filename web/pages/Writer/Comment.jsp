@@ -151,7 +151,7 @@
                 if (this.user!=''&&this.content!='') {
                     var comment = {id: Date.now(),textno:this.textno, user: this.user, content: this.content,title:this.title,context:this.context,point:Number(this.point)}
                     this.$http.post('addcommentsevlet',JSON.stringify(comment)).then(function(data){//同时评论次数加一  //给文章的作者们发送一条message 告诉他们有人评论了
-                        console.log(data);
+                        console.log(comment);
                         this.loadComments();
                     })
                     //
