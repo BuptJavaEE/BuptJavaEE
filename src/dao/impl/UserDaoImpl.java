@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User queryUserByUsername(String username) {
         List<Map<String, Object>> list = new ArrayList<>();
-        User user = new User();
+        User user = null;
         try {
             MongoDao mongoDao = new MongoDaoImpl();
             MongoDatabase db = MongoHelper.getMongoDataBase();
