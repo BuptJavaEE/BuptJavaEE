@@ -30,7 +30,7 @@ public class MessageDaoImpl implements MessageDao {
         MongoDao mongoDao = new MongoDaoImpl();
         MongoDatabase db = MongoHelper.getMongoDataBase();
         BasicDBObject usernameObj = new BasicDBObject("username", username);
-        String table = "Message";
+        String table = "message";
         try {
             list = mongoDao.queryByDoc(db, table, usernameObj);
             for (Map<String, Object> map : list) {
@@ -48,7 +48,7 @@ public class MessageDaoImpl implements MessageDao {
     public void saveMessage(Message message) {
         MongoDao mongoDao = new MongoDaoImpl();
         MongoDatabase db = MongoHelper.getMongoDataBase();
-        String table = "Message";
+        String table = "message";
         String Json = new Gson().toJson(message);
         Document document = Document.parse(Json);
         try {
@@ -57,14 +57,13 @@ public class MessageDaoImpl implements MessageDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void deleteMessage(String username) {
         MongoDao mongoDao = new MongoDaoImpl();
         MongoDatabase db = MongoHelper.getMongoDataBase();
-        String table = "Message";
+        String table = "message";
         BasicDBObject usernameObj = new BasicDBObject("username", username);
         try {
             if (mongoDao.delete(db, table, usernameObj))

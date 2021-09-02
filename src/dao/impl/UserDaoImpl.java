@@ -104,6 +104,21 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User queryUserByUserId(int id) {
-        return null;
+        List<Map<String,Object>> list = new ArrayList<>();
+        User user = null;
+        BasicDBObject idObj = new BasicDBObject("id",id);
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "user";
+        MongoDao mongoDao = new MongoDaoImpl();
+        try {
+            list = mongoDao.queryByDoc(db,table,idObj);
+            if(list.size()==1){
+                String json = new Gson().toJson(list.get(0));
+                user=new Gson().fromJson(json,User.class);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

@@ -1,5 +1,7 @@
 package web;
 
+import dao.UserDao;
+import dao.impl.UserDaoImpl;
 import pojo.User;
 import service.UserService;
 import service.impl.UserServiceImpl;
@@ -30,9 +32,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //  1、获取请求的参数
         String username = req.getParameter("username");
-        String password = req.getParameter("password");
         // 调用 userService.login()登录处理业务
-        User loginUser = userService.login(new User(null, username, password, null));
+        User loginUser = new UserDaoImpl().queryUserByUsername(username);
         // 如果等于null,说明登录 失败!
         if(loginUser == null){
             //跳回登陆界面

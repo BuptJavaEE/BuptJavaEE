@@ -27,7 +27,8 @@ public class ShowArticleServlet extends HttpServlet {
             resp.setContentType("application/json;charset=utf-8");
             PrintWriter out = resp.getWriter();
             User loginUser=(User)req.getSession().getAttribute("User");
-            String articles = new ArticleServiceImpl().loadArticles(loginUser.getId());
+            String articles = new ArticleDaoImpl().getArticles(loginUser.getId());
+            System.out.println(loginUser.getId());
             out.print(articles);
             System.out.println(articles);
         }catch (Exception e){
