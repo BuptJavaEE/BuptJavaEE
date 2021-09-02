@@ -175,9 +175,9 @@
             joinBlog(title,textno){
                 //发送组队申请
                 alert("申请已发送")
-                apply = {title:title,textno:textno,username:<%=loginUser.getUsername()%>}
-                this.$http.post("https://jsonplaceholder.typicode.com/posts/",apply).then(function (data) {
-                    console.log(data);
+                var message = {type:'apply',title:title,textno:textno,username:'<%=loginUser.getUsername()%>',nickname:'<%=loginUser.getNickname()%>'}
+                console.log(message)
+                this.$http.post("messageservlet",apply).then(function (data) {
                 })
             }
         },

@@ -223,15 +223,20 @@
         window.location.href="pages/Student/Comment.jsp"
     }
     //缺servlet响应
-    function access(username,textno){
-        var passcard = {username:username,textno:textno,pass:true}
-    $.post("",JSON.stringify(passcard));
+    function access(username,nickname,textno,title){
+        //1。在数据库中 将通过的人 加入文章写作小组
+        //2。向通过的人发送message
+        var message = {type:'pass',username:username,textno:textno,nickname:nickname,title:title}
+        console.log(message);
+    $.post("messageservlet",JSON.stringify(message));
 
     }
     //缺servlet响应
-    function refuse(username,textno){
-        var passcard = {username:username,textno:textno,pass:false}
-        $.post("",JSON.stringify(passcard));
+    function refuse(username,nickname,textno,title){
+        //1。向被拒绝的人发送该message 告知他申请被拒绝了
+        var message = {type:'refuse',username:username,textno:textno,nickname:nickname,title:title}
+        console.log(message)
+        $.post("messageservlet",JSON.stringify(message));
     }
     //缺协同写作绝对地址
     function goWriter(textno){
@@ -257,7 +262,7 @@
 
                 else if (message.type=="apply"){
                     //个人主页，收到提示 有人申请加入小组
-                    var strVar="<div class=\"alert status-secondary\">"+message.nickname+"申请加入您的"+message.title+"文章与您的小组一起写作<button onclick='access(\""+message.username+"\",\""+message.textno+"\")'>接受</button><button onclick='refuse(\""+message.username+"\",\""+message.textno+"\")'>拒绝</button></div>"
+                    var strVar="<div class=\"alert status-secondary\">"+message.nickname+"申请加入您的"+message.title+"文章与您的小组一起写作<button class='access' onclick='access(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>接受</button><button class='refuse' onclick='refuse(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>拒绝</button></div>"
                     $(".alerts").append(strVar);
 
                 }else if (message.type=="writing") {
