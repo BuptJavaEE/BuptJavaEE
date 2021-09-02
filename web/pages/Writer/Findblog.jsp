@@ -131,14 +131,14 @@
     <%-- 具体博客           --%>
     <blog class="single-blog" v-for="blog in filterblogs">
         <div class="blog">
-            <h2 v-html="highlight(blog.title)"></h2>
+            <h2 v-html="highlight(blog.textname)"></h2>
             <br/>
-            <article>{{blog.body|snippet}}</article>
-            <div class="detail"><span class="glyphicon glyphicon-star-empty"></span>&nbsp;{{blog.id}}</div>
-            <div class="detail"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;{{blog.id}}</div>
-            <div class="detail"><span class="glyphicon glyphicon-comment"></span>&nbsp;{{blog.id}}</div>
-            <button class="butt" v-on:click="joinBlog(blog.title,blog.id)"><span class="glyphicon glyphicon-user"></span>加入</button>
-            <button class="butt" v-on:click="goComment(blog.title,blog.body,'true',blog.textno)"><span class="glyphicon glyphicon-pencil"></span>评论</button>
+            <article>{{blog.text|snippet}}</article>
+            <div class="detail"><span class="glyphicon glyphicon-star-empty"></span>&nbsp;{{blog.point}}</div>
+            <div class="detail"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;{{blog.open}}</div>
+            <div class="detail"><span class="glyphicon glyphicon-comment"></span>&nbsp;{{blog.comment}}</div>
+            <button class="butt" v-on:click="joinBlog(blog.textname,blog.textno)"><span class="glyphicon glyphicon-user"></span>加入</button>
+            <button class="butt" v-on:click="goComment(blog.textname,blog.text,'true',blog.textno)"><span class="glyphicon glyphicon-pencil"></span>评论</button>
             <br/>
         </div>
     </blog>
@@ -184,7 +184,7 @@
         computed:{
             filterblogs:function(){
                 return this.blogs.filter((blog)=>{
-                    return blog.title.match(this.search);
+                    return blog.textname.match(this.search);
                 })
             }
         },

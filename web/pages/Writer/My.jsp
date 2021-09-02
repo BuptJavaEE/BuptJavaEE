@@ -187,10 +187,10 @@
             <%-- 具体博客           --%>
                 <blog class="single-blog" v-for="blog in filterblogs">
                     <div class="blog">
-                    <h2 v-html="highlight(blog.title)"></h2>
+                    <h2 v-html="highlight(blog.textname)"></h2>
                     <br/>
-                    <article>{{blog.body|snippet}}</article>
-                        <button class="butt" v-on:click="goComment(blog.title,blog.body)"><span class="glyphicon glyphicon-file"></span>查看</button>
+                    <article>{{blog.text|snippet}}</article>
+                        <button class="butt" v-on:click="goComment(blog.textname,blog.text)"><span class="glyphicon glyphicon-file"></span>查看</button>
                     </div>
                 </blog>
         </div>
@@ -317,7 +317,7 @@
             computed:{
               filterblogs:function(){
                   return this.blogs.filter((blog)=>{
-                      return blog.title.match(this.search);
+                      return blog.textname.match(this.search);
                   })
               }
             },
