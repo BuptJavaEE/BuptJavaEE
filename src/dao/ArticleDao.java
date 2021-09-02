@@ -31,4 +31,10 @@ public interface ArticleDao {
      * @return
      */
     public int queryGroupidByTextno(int textno);
+
+    /**
+     * 查询所有文章
+     * @return
+     */
+    public List<Article> queryAllArticles();
 }

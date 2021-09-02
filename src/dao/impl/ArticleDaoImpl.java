@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.UpdateResult;
 import dao.ArticleDao;
 import org.bson.Document;
+import pojo.Article;
 import utils.MongoDao;
 import utils.MongoDaoImpl;
 import utils.MongoHelper;
@@ -89,5 +90,24 @@ public class ArticleDaoImpl implements ArticleDao {
             e.printStackTrace();
         }
         return groupid;
+    }
+
+    @Override
+    public List<Article> queryAllArticles() {
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "articles";
+        MongoDao mongoDao = new MongoDaoImpl();
+        List<Article> list = new ArrayList<>();
+        List<Map<String,Object>> temp = new ArrayList<>();
+        try {
+            temp = mongoDao.queryAll(db,table);
+            for(int i = 0; i<temp.size();i++){
+                String json = new Gson().toJson(temp);
+                list.add(new Gson().fromJson(json,Article.class));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

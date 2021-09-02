@@ -72,6 +72,7 @@ public class ShowCommentServlet extends HttpServlet {
                     res.add(json);
                 }
             }
+
             //浏览次数+1
             ArticleDao articleDao = new ArticleDaoImpl();
             articleDao.updateBrowsetimes(textno);
