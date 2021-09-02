@@ -34,7 +34,7 @@ public class ShowAllArticleServlet extends HttpServlet {
         try{
             resp.setContentType("application/json;charset=utf-8");
             PrintWriter out = resp.getWriter();
-            List<Article> list = new ArrayList<>();
+            List<Article> list;
             list = new ArticleDaoImpl().queryAllArticles();
             String articles = new Gson().toJson(list);
             out.print(articles);

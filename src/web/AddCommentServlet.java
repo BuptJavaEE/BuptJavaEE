@@ -44,6 +44,7 @@ public class AddCommentServlet extends HttpServlet {
 
             //获取到的json字符串
             String acceptjson = sb.toString();
+            System.out.println("评论"+acceptjson);
             JsonObject jsonObject = JsonParser.parseString(acceptjson).getAsJsonObject();
 
             //取东西
@@ -52,7 +53,8 @@ public class AddCommentServlet extends HttpServlet {
             String nickname = jsonObject.get("user").getAsString();
 
             //插入评论
-            Comment comment = new Gson().fromJson(acceptjson, Comment.class);
+            Comment comment = new Comment(jsonObject.get("id").getAsInt(), textno, jsonObject.get("user").getAsString(), jsonObject.get("content").getAsString(), title,jsonObject.get("context").getAsString(), jsonObject.get("point").getAsInt());
+
             CommentDao commentDao = new CommentDaoImpl();
             commentDao.saveComment(comment);
 

@@ -76,6 +76,7 @@ public class ShowCommentServlet extends HttpServlet {
             //浏览次数+1
             ArticleDao articleDao = new ArticleDaoImpl();
             articleDao.updateBrowsetimes(textno);
+
             //将评论转换为json类型
             out.print(res);
             System.out.println("返回数据" + json);
