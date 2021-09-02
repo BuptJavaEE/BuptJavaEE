@@ -162,7 +162,7 @@
         <br/>
         <br/>
         <p class="message">个人信息</p>
-        <img class="userHead" src="static/img/头像.jpeg" width="100" height="100">
+        <img class="userHead" src="static/img/head.jpeg" width="100" height="100">
         <p class="userNickname"><span class="glyphicon glyphicon-user"></span> <%=loginUser.getNickname()%></p>
         <span class="label label-default">账号用户名:<%=loginUser.getUsername()%></span>
         <br/>

@@ -85,38 +85,38 @@
                 <!-- 选择表情       -->
                 <input type="radio" name="star1" id="star1" value="10" v-model="point">
                 <label for="star1">
-                    <img src="static/img/非常出色.png" alt="">
+                    <img src="static/img/awesome.png" alt="">
                     <h4>非常出色</h4>
                 </label>
                 <input type="radio" name="star1" id="star2" value="9" v-model="point">
                 <label for="star2">
-                    <img src="static/img/优秀.png" alt="">
+                    <img src="static/img/great.png" alt="">
                     <h4>优秀</h4>
                 </label>
                 <input type="radio" name="star1" id="star3"  value="7" v-model="point">
                 <label for="star3">
-                    <img src="static/img/良好.png" alt="">
+                    <img src="static/img/good.png" alt="">
                     <h4>良好</h4>
                 </label>
                 <!-- 默认选择的表情       -->
                 <input type="radio" name="star1" id="star4"  value="6" v-model="point" checked="checked">
                 <label for="star4">
-                    <img src="static/img/尚可.png" alt="">
+                    <img src="static/img/justsoso.png" alt="">
                     <h4>尚可</h4>
                 </label>
                 <input type="radio" name="star1" id="star5"  value="4" v-model="point">
                 <label for="star5">
-                    <img src="static/img/略差.png" alt="">
+                    <img src="static/img/littlebad.png" alt="">
                     <h4>略差</h4>
                 </label>
                 <input type="radio" name="star1" id="star6"  value="3" v-model="point">
                 <label for="star6">
-                    <img src="static/img/较差.png" alt="">
+                    <img src="static/img/bad.png" alt="">
                     <h4>较差</h4>
                 </label>
                 <input type="radio" name="star1" id="star7"  value="1" v-model="point">
                 <label for="star7">
-                    <img src="static/img/特别差.png" alt="">
+                    <img src="static/img/verybad.png" alt="">
                     <h4>特别差</h4>
                 </label>
             </div>
