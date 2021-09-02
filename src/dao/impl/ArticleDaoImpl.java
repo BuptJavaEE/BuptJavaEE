@@ -68,7 +68,7 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public int queryArticleByTextno(int textno) {
+    public int queryGroupidByTextno(int textno) {
         return 0;
     }
 }

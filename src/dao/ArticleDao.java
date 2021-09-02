@@ -30,5 +30,5 @@ public interface ArticleDao {
      * @param textno
      * @return
      */
-    public int queryArticleByTextno(int textno);
+    public int queryGroupidByTextno(int textno);
 }
