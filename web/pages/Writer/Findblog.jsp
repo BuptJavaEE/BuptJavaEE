@@ -138,7 +138,7 @@
             <div class="detail"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;{{blog.id}}</div>
             <div class="detail"><span class="glyphicon glyphicon-comment"></span>&nbsp;{{blog.id}}</div>
             <button class="butt" v-on:click="joinBlog(blog.title,blog.id)"><span class="glyphicon glyphicon-user"></span>加入</button>
-            <button class="butt" v-on:click="goComment(blog.title,blog.body,'true')"><span class="glyphicon glyphicon-pencil"></span>评论</button>
+            <button class="butt" v-on:click="goComment(blog.title,blog.body,'true',blog.textno)"><span class="glyphicon glyphicon-pencil"></span>评论</button>
             <br/>
         </div>
     </blog>
@@ -165,9 +165,9 @@
                 return val;
             }
             ,
-            goComment(title, body ,permission) {
+            goComment(title, body ,permission,textno) {
                 //跳转到评论页面
-                commentblog = {title: title, content: body,permission: permission }
+                commentblog = {title: title, content: body,permission: permission,textno: textno}
                 console.log(commentblog)
                 localStorage.setItem('blog', JSON.stringify(commentblog))
                 window.location.href = "pages/Writer/Comment.jsp"

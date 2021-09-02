@@ -136,6 +136,7 @@
             context:'',
             user:'<%=loginUser.getNickname()%>',
             content: '',
+            textno:'1',
             point:6,
             list:[
                 { time: Date.now(), user: '路人甲', content: '武汉加油' },
@@ -148,7 +149,7 @@
             //评论发布
             postComments() {
                 if (this.user!=''&&this.content!='') {
-                    var comment = {id: Date.now(), user: this.user, content: this.content,title:this.title,context:this.context,point:Number(this.point)}
+                    var comment = {id: Date.now(),textno:this.textno, user: this.user, content: this.content,title:this.title,context:this.context,point:Number(this.point)}
                     this.$http.post('addcommentsevlet',JSON.stringify(comment)).then(function(data){//同时评论次数加一  //给文章的作者们发送一条message 告诉他们有人评论了
                         console.log(data);
                         this.loadComments();
@@ -179,6 +180,7 @@
             this.title=blog.title
             this.context=blog.content
             this.permission=blog.permission
+            this.textno=blog.textno
             console.log(this.permission)
             var thisblog={title:this.title,context:this.context};
             this.$http.post("showcommentservlet",JSON.stringify(thisblog));//浏览次数加一
