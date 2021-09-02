@@ -33,7 +33,7 @@ public class RegistServlet extends HttpServlet {
             if(userService.existsUsername(username)){
                 System.out.println("用户名["+username+"]已存在！");
                 //        跳回注册页面
-                resp.sendRedirect("/BuptJavaEE_war_exploded/pages/User/regist.html");
+                resp.sendRedirect("/BuptJavaEE_war_exploded/pages/User/regist.html#"+username);
             }
             else{
                 //可用
