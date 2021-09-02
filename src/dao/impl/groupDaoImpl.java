@@ -22,13 +22,13 @@ import java.util.Map;
 public class groupDaoImpl implements groupDao {
     @Override
     public String queryGroupByGroupId(int groupid) {
-        List<Map<String,Object>> list = new ArrayList<>();
+        List<Map<String, Object>> list = new ArrayList<>();
         MongoDao mongoDao = new MongoDaoImpl();
         MongoDatabase db = MongoHelper.getMongoDataBase();
         String table = "group";
-        BasicDBObject idObj = new BasicDBObject("groupid",groupid);
+        BasicDBObject idObj = new BasicDBObject("groupid", groupid);
         try {
-            list = mongoDao.queryByDoc(db,table,idObj);
+            list = mongoDao.queryByDoc(db, table, idObj);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,17 +36,22 @@ public class groupDaoImpl implements groupDao {
     }
 
     @Override
-    public String queryGroupByGroupleader(int groupleader) {
-        List<Map<String,Object>> list = new ArrayList<>();
+    public List<Integer> queryAuthorsByGroupId(int groupid) {
+        List<Map<String, Object>> list = new ArrayList<>();
+        List<Integer> authorlist = new ArrayList<>();
         MongoDao mongoDao = new MongoDaoImpl();
         MongoDatabase db = MongoHelper.getMongoDataBase();
         String table = "group";
-        BasicDBObject leaderObj = new BasicDBObject("groupleader",groupleader);
+        BasicDBObject leaderObj = new BasicDBObject("groupid", groupid);
         try {
-            list = mongoDao.queryByDoc(db,table,leaderObj);
+            list = mongoDao.queryByDoc(db, table, leaderObj);
+            for (int i = 0; i < list.size(); i++) {
+                int id = Integer.parseInt(list.get(i).get("id").toString());
+                authorlist.add(id);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Gson().toJson(list);
+        return authorlist;
     }
 }

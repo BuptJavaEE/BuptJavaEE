@@ -38,7 +38,8 @@ public class UserServiceImpl implements UserService {
         if (userDao.queryUserByUsername(username) == null){
             // 等于null,说明没查到，没查到表示可用
             return false;
+        }else {
+            return true;
         }
-        return true;
     }
 }

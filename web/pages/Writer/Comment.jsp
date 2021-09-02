@@ -181,8 +181,9 @@
             this.context=blog.content
             this.permission=blog.permission
             this.textno=blog.textno
+            this.username = '<%=loginUser.getNickname()%>'
             console.log(this.permission)
-            var thisblog={title:this.title,context:this.context};
+            var thisblog={title:this.title,context:this.context,username:this.username,textno:this.textno};
             this.$http.post("showcommentservlet",JSON.stringify(thisblog));//浏览次数加一
             this.loadComments();
         }

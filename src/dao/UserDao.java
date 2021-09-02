@@ -2,6 +2,8 @@ package dao;
 
 import pojo.User;
 
+import java.util.List;
+
 /**
  * 类<code>UserDao</code>用于:定义User类相关操作所需要的一系列基础函数
  *
@@ -39,4 +41,11 @@ public interface UserDao {
      * @return
      */
     public boolean queryUserId(int id);
+
+    /**
+     * 根据id查找用户
+     * @param id
+     * @return
+     */
+    public User queryUserByUserId(int id);
 }

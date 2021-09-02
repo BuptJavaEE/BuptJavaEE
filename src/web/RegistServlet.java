@@ -33,7 +33,7 @@ public class RegistServlet extends HttpServlet {
             if(userService.existsUsername(username)){
                 System.out.println("用户名["+username+"]已存在！");
                 //        跳回注册页面
-                req.getRequestDispatcher("/pages/User/regist.html").forward(req, resp);
+                resp.sendRedirect("/BuptJavaEE_war_exploded/pages/User/regist.html");
             }
             else{
                 //可用
@@ -41,7 +41,7 @@ public class RegistServlet extends HttpServlet {
                 userService.registUser(new User(null, username, password, nickname));
 //
 //        跳到登录页面 login.html
-                req.getRequestDispatcher("/pages/User/login.html").forward(req, resp);
+                resp.sendRedirect("/BuptJavaEE_war_exploded/pages/User/login.html");
             }
     }
 

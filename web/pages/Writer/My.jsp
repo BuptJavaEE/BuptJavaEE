@@ -228,7 +228,7 @@
         //2。向通过的人发送message
         var message = {type:'pass',username:username,textno:textno,nickname:nickname,title:title}
         console.log(message);
-    $.post("messageservlet",JSON.stringify(message));
+    $.post("addmessagesservlet",JSON.stringify(message));
 
     }
     //缺servlet响应
@@ -236,7 +236,7 @@
         //1。向被拒绝的人发送该message 告知他申请被拒绝了
         var message = {type:'refuse',username:username,textno:textno,nickname:nickname,title:title}
         console.log(message)
-        $.post("messageservlet",JSON.stringify(message));
+        $.post("addmessagesservlet",JSON.stringify(message));
     }
     //缺协同写作绝对地址
     function goWriter(textno){

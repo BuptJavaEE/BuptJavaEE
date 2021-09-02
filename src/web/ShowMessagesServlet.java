@@ -28,7 +28,6 @@ public class ShowMessagesServlet extends HttpServlet {
             User loginUser=(User)req.getSession().getAttribute("User");
             String messages = new MessageServiceImpl().loadMessage(loginUser.getUsername());
             out.print(messages);
-            System.out.println(messages);
         }catch (Exception e){
             e.printStackTrace();
         }

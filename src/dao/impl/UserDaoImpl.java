@@ -34,11 +34,11 @@ public class UserDaoImpl implements UserDao {
             BasicDBObject usernameObj = new BasicDBObject("username", username);
             String table = "user";
             list = mongoDao.queryByDoc(db, table, usernameObj);
-            if(list.size()==1){
-                Map<String,Object> map = list.get(0);
+            if (list.size() == 1) {
+                Map<String, Object> map = list.get(0);
                 String json = new Gson().toJson(map);
-                user = new Gson().fromJson(json,User.class);
-        }
+                user = new Gson().fromJson(json, User.class);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,14 +53,14 @@ public class UserDaoImpl implements UserDao {
             MongoDao mongoDao = new MongoDaoImpl();
             MongoDatabase db = MongoHelper.getMongoDataBase();
             BasicDBObject usernameObj = new BasicDBObject("username", username);
-            BasicDBObject pwdObj = new BasicDBObject("password",password);
-            BasicDBObject andObj = new BasicDBObject("$and", Arrays.asList(usernameObj,pwdObj));
+            BasicDBObject pwdObj = new BasicDBObject("password", password);
+            BasicDBObject andObj = new BasicDBObject("$and", Arrays.asList(usernameObj, pwdObj));
             String table = "user";
             list = mongoDao.queryByDoc(db, table, andObj);
-            if(list.size()==1){
-                Map<String,Object> map = list.get(0);
+            if (list.size() == 1) {
+                Map<String, Object> map = list.get(0);
                 String json = new Gson().toJson(map);
-                user = new Gson().fromJson(json,User.class);
+                user = new Gson().fromJson(json, User.class);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,17 +88,22 @@ public class UserDaoImpl implements UserDao {
     public boolean queryUserId(int id) {
         List<Map<String, Object>> list = null;
         try {
-        MongoDao mongoDao = new MongoDaoImpl();
-        MongoDatabase db = MongoHelper.getMongoDataBase();
-        BasicDBObject idObj = new BasicDBObject("id",id);
-        String table = "user";
-        list = mongoDao.queryByDoc(db, table, idObj);
-        if(list.size()>0){
-            return false;
-        }
+            MongoDao mongoDao = new MongoDaoImpl();
+            MongoDatabase db = MongoHelper.getMongoDataBase();
+            BasicDBObject idObj = new BasicDBObject("id", id);
+            String table = "user";
+            list = mongoDao.queryByDoc(db, table, idObj);
+            if (list.size() > 0) {
+                return false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
+    }
+
+    @Override
+    public User queryUserByUserId(int id) {
+        return null;
     }
 }

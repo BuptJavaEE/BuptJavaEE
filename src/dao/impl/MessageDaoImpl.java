@@ -11,7 +11,6 @@ import utils.MongoDaoImpl;
 import utils.MongoHelper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -28,25 +27,50 @@ public class MessageDaoImpl implements MessageDao {
         List<Map<String, Object>> list = new ArrayList<>();//存储查询结果用的表
         List<Message> reslist = new ArrayList<>();//结果表
         Message tempmessage = new Message();//临时存储
-        /**
-         * 数据库相关操作
-         */
+        MongoDao mongoDao = new MongoDaoImpl();
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        BasicDBObject usernameObj = new BasicDBObject("username", username);
+        String table = "Message";
+        try {
+            list = mongoDao.queryByDoc(db, table, usernameObj);
+            for (Map<String, Object> map : list) {
+                String Json = new Gson().toJson(map);
+                tempmessage = new Gson().fromJson(Json, Message.class);
+                reslist.add(tempmessage);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return reslist;
     }
 
     @Override
     public void saveMessage(Message message) {
-        /**
-         * 数据库相关操作
-         */
-        System.out.println("插入成功！");
+        MongoDao mongoDao = new MongoDaoImpl();
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "Message";
+        String Json = new Gson().toJson(message);
+        Document document = Document.parse(Json);
+        try {
+            if (mongoDao.insert(db, table, document))
+                System.out.println("插入成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
     public void deleteMessage(String username) {
-        /**
-         * 数据库相关操作
-         */
-        System.out.println("删除成功！");
+        MongoDao mongoDao = new MongoDaoImpl();
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "Message";
+        BasicDBObject usernameObj = new BasicDBObject("username", username);
+        try {
+            if (mongoDao.delete(db, table, usernameObj))
+                System.out.println("删除成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

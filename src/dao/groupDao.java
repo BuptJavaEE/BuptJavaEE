@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 /**
  * 类<code>Doc</code>用于：TODO
  *
@@ -16,9 +18,9 @@ public interface groupDao {
     public String queryGroupByGroupId(int groupid);
 
     /**
-     * 根据组长号查询小组
-     * @param groupleader
+     * 根据小组号查询相关人员
+     * @param groupid
      * @return
      */
-    public String queryGroupByGroupleader(int groupleader);
+    public List<Integer> queryAuthorsByGroupId(int groupid);
 }

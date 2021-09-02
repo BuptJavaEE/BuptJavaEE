@@ -12,6 +12,7 @@ public class Article {
     private String text; //文章内容
     private int textno; //文章编号
     private int groupid; //小组编号
+    private int browsertimes; //浏览次数
 
     public String getTextname() {
         return textname;
@@ -45,14 +46,23 @@ public class Article {
         this.groupid = groupid;
     }
 
+    public int getBrowsertimes() {
+        return browsertimes;
+    }
+
+    public void setBrowsertimes(int browsertimes) {
+        this.browsertimes = browsertimes;
+    }
+
     public Article() {
     }
 
-    public Article(String textname, String text, int textno, int groupid) {
+    public Article(String textname, String text, int textno, int groupid, int browsertimes) {
         this.textname = textname;
         this.text = text;
         this.textno = textno;
         this.groupid = groupid;
+        this.browsertimes = browsertimes;
     }
 
     @Override
@@ -62,6 +72,7 @@ public class Article {
                 ", text='" + text + '\'' +
                 ", textno=" + textno +
                 ", groupid=" + groupid +
+                ", browsertimes=" + browsertimes +
                 '}';
     }
 }

@@ -154,7 +154,7 @@
             test:"success"
         },
         created(){
-            this.$http.get('https://jsonplaceholder.typicode.com/posts/').then(function(data){
+            this.$http.get('showarticleservlet').then(function(data){
                 this.blogs = data.body.slice(0,10);
                 console.log(this.blogs);
             })
@@ -177,7 +177,7 @@
                 alert("申请已发送")
                 var message = {type:'apply',title:title,textno:textno,username:'<%=loginUser.getUsername()%>',nickname:'<%=loginUser.getNickname()%>'}
                 console.log(message)
-                this.$http.post("messageservlet",apply).then(function (data) {
+                this.$http.post("addmessagesservlet",apply).then(function (data) {
                 })
             }
         },

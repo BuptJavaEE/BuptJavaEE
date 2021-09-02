@@ -2,14 +2,16 @@ package dao.impl;
 
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.UpdateResult;
 import dao.ArticleDao;
+import org.bson.Document;
 import utils.MongoDao;
 import utils.MongoDaoImpl;
 import utils.MongoHelper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -48,5 +50,25 @@ public class ArticleDaoImpl implements ArticleDao {
         }
         res = new Gson().toJson(articlelist);
         return res;
+    }
+
+    @Override
+    public void updateBrowsetimes(int textno) {
+        BasicDBObject textnoObj = new BasicDBObject("textno",textno);
+        BasicDBObject updateObj = new BasicDBObject("browsertimes",1);
+        BasicDBObject resObj = new BasicDBObject("$inc",updateObj);
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table= "article";
+        MongoCollection<Document> collection = db.getCollection(table);
+        try {
+            UpdateResult updateManyResult = collection.updateMany(textnoObj,resObj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int queryArticleByTextno(int textno) {
+        return 0;
     }
 }
