@@ -12,6 +12,11 @@
 		<script type="text/javascript">
 			// 页面加载完成之后
 			$(function () {
+				//获取特殊消息
+
+				if (window.location.hash!="") {
+					$("span.errorMsg").text("用户名" + window.location.hash + "#已存在");
+				}
 				// 给注册绑定单击事件
 				$("#sub_btn").click(function () {
 					// 验证用户名：必须由字母，数字下划线组成，并且长度为5到12位
