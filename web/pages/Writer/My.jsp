@@ -220,7 +220,7 @@
         console.log("点击事件触发")
         commentblog={title:title,content:body,permission:permission}
         localStorage.setItem('blog',JSON.stringify(commentblog))
-        window.location.href="pages/Student/Comment.jsp"
+        window.location.href="pages/Writer/Comment.jsp"
     }
     //缺servlet响应
     function access(username,nickname,textno,title){
@@ -256,7 +256,7 @@
 
                 else if (message.type=="suggest"){
                     //个人主页，收到消息提示 有人给我的作品给出了建议
-                    var str = "<div class=\"alert status-primary\">有人对您的文章提出了建议，点我<button onclick='goComment(message.title,message.body,true)'>查看建议</button></div>"
+                    var str = "<div class=\"alert status-primary\">有人对您的文章提出了建议，点我<button onclick='goComment(\""+message.title+"\",\"缺数据库支持\",true)'>查看建议</button></div>"
                     $(".alerts").append(str);
                 }
 
