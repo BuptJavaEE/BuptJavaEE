@@ -22,6 +22,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 类<code>ShowCommentServlet</code>用于:展示评论的servlet
@@ -61,12 +62,12 @@ public class ShowCommentServlet extends HttpServlet {
             //连接数据库,获取评论
             JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
             String username = jsonObject.get("username").getAsString();
-            int textno = jsonObject.get("textno").getAsInt();
+            String textno = jsonObject.get("textno").getAsString();
             List<Comment> comments = new CommentServiceImpl().loadComments(username);
             Comment tempcomment = new Comment();
             List<String> res = new ArrayList<>();
             for (Comment comment : comments) {
-                if (comment.getTextno() == textno) {
+                if (Objects.equals(comment.getTextno(), textno)) {
                     tempcomment = comment;
                     String json = new Gson().toJson(tempcomment);
                     res.add(json);

@@ -12,6 +12,7 @@ public class Message {
     private String title; //文章标题(当消息类型为writing或apply时可用)
     private String nickname; //昵称(当消息类型为writing或apply时可用)
     private String username; //消息所有者的用户名
+    private String textno; //文章号
 
     public String getType() {
         return type;
@@ -45,14 +46,23 @@ public class Message {
         this.username = username;
     }
 
+    public String getTextno() {
+        return textno;
+    }
+
+    public void setTextno(String textno) {
+        this.textno = textno;
+    }
+
     public Message() {
     }
 
-    public Message(String type,String title,String nickname, String username) {
+    public Message(String type, String title, String nickname, String username, String textno) {
         this.type = type;
         this.title = title;
         this.nickname = nickname;
         this.username = username;
+        this.textno = textno;
     }
 
     @Override
@@ -61,6 +71,8 @@ public class Message {
                 "type='" + type + '\'' +
                 ", title='" + title + '\'' +
                 ", nickname='" + nickname + '\'' +
+                ", username='" + username + '\'' +
+                ", textno=" + textno +
                 '}';
     }
 }

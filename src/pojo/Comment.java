@@ -9,7 +9,7 @@ package pojo;
  */
 public class Comment {
     private int id; //发表时间
-    private int textno; //文章编号
+    private String textno; //文章编号
     private String username; //评论人的名称
     private String content; //评论内容
     private String title; //文章标题
@@ -24,11 +24,11 @@ public class Comment {
         this.id = id;
     }
 
-    public int getTextno() {
+    public String getTextno() {
         return textno;
     }
 
-    public void setTextno(int textno) {
+    public void setTextno(String textno) {
         this.textno = textno;
     }
 
@@ -75,7 +75,7 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(int id, int textno, String username, String content, String title, String context, int point) {
+    public Comment(int id, String textno, String username, String content, String title, String context, int point) {
         this.id = id;
         this.textno = textno;
         this.username = username;

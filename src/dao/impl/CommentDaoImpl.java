@@ -6,7 +6,6 @@ import com.mongodb.client.MongoDatabase;
 import dao.CommentDao;
 import org.bson.Document;
 import pojo.Comment;
-import pojo.Message;
 import utils.MongoDao;
 import utils.MongoDaoImpl;
 import utils.MongoHelper;

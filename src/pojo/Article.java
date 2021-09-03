@@ -10,8 +10,8 @@ package pojo;
 public class Article {
     private String textname; //文章标题
     private String text; //文章内容
-    private int textno; //文章编号
-    private int groupid; //小组编号
+    private String textno; //文章编号
+    private String groupid; //小组编号
     private int browsertimes; //浏览次数
 
     public String getTextname() {
@@ -30,19 +30,19 @@ public class Article {
         this.text = text;
     }
 
-    public int getTextno() {
+    public String getTextno() {
         return textno;
     }
 
-    public void setTextno(int textno) {
+    public void setTextno(String textno) {
         this.textno = textno;
     }
 
-    public int getGroupid() {
+    public String getGroupid() {
         return groupid;
     }
 
-    public void setGroupid(int groupid) {
+    public void setGroupid(String groupid) {
         this.groupid = groupid;
     }
 
@@ -57,7 +57,7 @@ public class Article {
     public Article() {
     }
 
-    public Article(String textname, String text, int textno, int groupid, int browsertimes) {
+    public Article(String textname, String text, String textno, String groupid, int browsertimes) {
         this.textname = textname;
         this.text = text;
         this.textno = textno;

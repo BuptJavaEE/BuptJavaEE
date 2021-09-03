@@ -8,16 +8,16 @@ package pojo;
  * @date 2021-08-30-13
  */
 public class User {
-    private Integer id; //默认id
+    private int id; //默认id
     private String username; //用户名
     private String password; //密码
     private String nickname;//昵称
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -48,7 +48,7 @@ public class User {
     public User() {
     }
 
-    public User(Integer id, String username, String password, String nickname) {
+    public User(int id, String username, String password, String nickname) {
         this.id = id;
         this.username = username;
         this.password = password;

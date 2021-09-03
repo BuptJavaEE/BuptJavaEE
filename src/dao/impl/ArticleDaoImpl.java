@@ -28,7 +28,7 @@ public class ArticleDaoImpl implements ArticleDao {
     public String getArticles(int id) {
         List<Map<String, Object>> grouplist; //小组列表
         List<Map<String, Object>> articlelist = new ArrayList<>(); //文章列表
-        List<Integer> groupidList = new ArrayList<>(); //id列表
+        List<String> groupidList = new ArrayList<>(); //id列表
         String res;
         MongoDao mongoDao = new MongoDaoImpl();
         MongoDatabase db = MongoHelper.getMongoDataBase();
@@ -38,13 +38,13 @@ public class ArticleDaoImpl implements ArticleDao {
             grouplist = mongoDao.queryByDoc(db, table, idObj);
 
             for (Map<String, Object> stringObjectMap : grouplist) {
-                int temp = Integer.parseInt(stringObjectMap.get("groupid").toString());
+                String temp = stringObjectMap.get("groupid").toString();
                 groupidList.add(temp);
             }
             System.out.println("小组id"+groupidList);
 
-            for (Integer integer : groupidList) {
-                BasicDBObject groupidObj = new BasicDBObject("groupid", integer);
+            for (String string : groupidList) {
+                BasicDBObject groupidObj = new BasicDBObject("groupid", string);
                 String table2 = "article";
                 List<Map<String, Object>> templist = mongoDao.queryByDoc(db, table2, groupidObj);
                 articlelist.addAll(templist);
@@ -59,7 +59,7 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public void updateBrowsetimes(int textno) {
+    public void updateBrowsetimes(String textno) {
         BasicDBObject textnoObj = new BasicDBObject("textno", textno);
         BasicDBObject updateObj = new BasicDBObject("browsertimes", 1);
         BasicDBObject resObj = new BasicDBObject("$inc", updateObj);
@@ -74,8 +74,8 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public int queryGroupidByTextno(int textno) {
-        int groupid = 0;
+    public String  queryGroupidByTextno(String  textno) {
+        String  groupid = null;
         List<Map<String,Object>> list = new ArrayList<>();
         BasicDBObject textnoObj = new BasicDBObject("textno",textno);
         MongoDatabase db = MongoHelper.getMongoDataBase();
@@ -84,7 +84,7 @@ public class ArticleDaoImpl implements ArticleDao {
         try {
             list = mongoDao.queryByDoc(db,table,textnoObj);
             if(list.size() == 1){
-                groupid = Integer.parseInt(list.get(0).get("groupid").toString());
+                groupid = list.get(0).get("groupid").toString();
             }
         } catch (Exception e) {
             e.printStackTrace();

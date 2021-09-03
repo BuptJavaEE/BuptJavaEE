@@ -23,14 +23,14 @@ public interface ArticleDao {
      * 自增对应textno的浏览次数
      * @param textno
      */
-    public void updateBrowsetimes(int textno);
+    public void updateBrowsetimes(String textno);
 
     /**
      * 根据文章号查询对应的写作小组号
      * @param textno
      * @return
      */
-    public int queryGroupidByTextno(int textno);
+    public String queryGroupidByTextno(String textno);
 
     /**
      * 查询所有文章
