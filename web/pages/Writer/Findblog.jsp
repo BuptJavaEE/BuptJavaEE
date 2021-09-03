@@ -133,12 +133,12 @@
         <div class="blog">
             <h2 v-html="highlight(blog.textname)"></h2>
             <br/>
-            <article>{{blog.text|snippet}}</article>
+            <article>{{blog.content|snippet}}</article>
             <div class="detail"><span class="glyphicon glyphicon-star-empty"></span>&nbsp;{{blog.point}}</div>
             <div class="detail"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;{{blog.open}}</div>
             <div class="detail"><span class="glyphicon glyphicon-comment"></span>&nbsp;{{blog.comment}}</div>
             <button class="butt" v-on:click="joinBlog(blog.textname,blog.textno)"><span class="glyphicon glyphicon-user"></span>加入</button>
-            <button class="butt" v-on:click="goComment(blog.textname,blog.text,'true',blog.textno)"><span class="glyphicon glyphicon-pencil"></span>评论</button>
+            <button class="butt" v-on:click="goComment(blog.textname,blog.content,'true',blog.textno)"><span class="glyphicon glyphicon-pencil"></span>评论</button>
             <br/>
         </div>
     </blog>
@@ -204,7 +204,11 @@
     })
     //省略过长的文本
     Vue.filter("snippet",function(value){
-        return value.slice(0,100)+"..."
+        if (value) {
+            return value.slice(0, 100) + "..."
+        }else {
+            return value
+        }
     })
 </script>
 </body>

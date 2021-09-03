@@ -37,6 +37,7 @@ public class MessageDaoImpl implements MessageDao {
             for (Map<String, Object> map : list) {
                 String Json = new Gson().toJson(map);
                 tempmessage = new Gson().fromJson(Json, Message.class);
+                System.out.println("tempmessage:"+tempmessage);
                 reslist.add(tempmessage);
             }
         } catch (Exception e) {

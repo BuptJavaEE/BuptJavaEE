@@ -55,16 +55,16 @@
 <%--    --%>
 <%--评论展示区--%>
 <div id="tmpl">
-    <div id="blog">
+    <div id="blog" style="margin: 10px">
         <h1>{{title}}</h1>
-        <h4>{{context}}</h4>
+        <h4 style="white-space: pre-wrap">{{context}}</h4>
         <h2 style="float: right">作者:赵，钱，孙，李</h2>
     </div>
     <div id="comment">
         <ul class="list-group">
             <li class="list-group-item" v-for="item in list" :key="item.id">
                 <span class="badge">评论人：{{ item.username}}</span>
-                {{ item.content }}
+                <div >{{item.content}}</div>
             </li>
         </ul>
 <%--作品评论区--%>

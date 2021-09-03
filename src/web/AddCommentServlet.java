@@ -77,7 +77,7 @@ public class AddCommentServlet extends HttpServlet {
                 Date date = new Date();
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String times = format.format(date.getTime());
-                Message message = new Message("suggest", title, nickname, name,textno,times,date);
+                Message message = new Message("suggest", title, nickname, name,textno,times,date.toString());
                 new MessageDaoImpl().saveMessage(message);
             }
 

@@ -18,7 +18,7 @@ public class Message {
     private String username; //消息所有者的用户名
     private String textno; //文章号
     private String standardDate; //标准时间
-    private Date date; //CST表示时间
+    private String date; //CST表示时间
 
     public String getType() {
         return type;
@@ -68,18 +68,18 @@ public class Message {
         this.standardDate = standardDate;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
     public Message() {
     }
 
-    public Message(String type, String title, String nickname, String username, String textno, String standardDate, Date date) {
+    public Message(String type, String title, String nickname, String username, String textno, String standardDate,String date) {
         this.type = type;
         this.title = title;
         this.nickname = nickname;

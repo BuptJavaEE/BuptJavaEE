@@ -251,37 +251,37 @@
                 console.log(message)
                 if (message.type=="pass") {
                     //个人主页，收到消息提示，我的申请通过了 能加入别人小组
-                    var str = "<div class=\"alert status-success\" id=\""+"message.data" +"\">您有关文章"+message.title+"的协作申请已经通过</div>"
+                    var str = "<div class=\"alert status-success\" id=\""+message.date +"\">您有关文章"+message.title+"的协作申请已经通过</div>"
                     $(".alerts").append(str);
                 }
 
                 else if (message.type=="suggest"){
                     //个人主页，收到消息提示 有人给我的作品给出了建议
-                    var str = "<div class=\"alert status-primary\" id=\""+"message.data" +"\">有人对您的文章提出了建议，点我<button onclick='goComment(\""+message.title+"\",\"……\",true,\""+message.textno+"\")'>查看建议</button></div>"
+                    var str = "<div class=\"alert status-primary\" id=\""+message.date +"\">有人对您的文章提出了建议，点我<button onclick='goComment(\""+message.title+"\",\"……\",true,\""+message.textno+"\")'>查看建议</button></div>"
                     $(".alerts").append(str);
                 }
 
                 else if (message.type=="apply"){
                     //个人主页，收到提示 有人申请加入小组
-                    var strVar="<div class=\"alert status-secondary\" id=\""+"message.data" +"\">"+message.nickname+"申请加入您的"+message.title+"文章与您的小组一起写作<button class='access' onclick='access(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>接受</button><button class='refuse' onclick='refuse(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>拒绝</button></div>"
+                    var strVar="<div class=\"alert status-secondary\" id=\""+message.date +"\">"+message.nickname+"申请加入您的"+message.title+"文章与您的小组一起写作<button class='access' onclick='access(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>接受</button><button class='refuse' onclick='refuse(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>拒绝</button></div>"
                     $(".alerts").append(strVar);
 
                 }else if (message.type=="writing") {
                     //个人主页，收到提示 小组消息 有人正在进行协同写作
-                    var strVar = "<div class=\"alert status-info\" id=\""+"message.data" +"\">"+message.nickname+"正在写作"+message.title+"文章，一起来吗？<button onclick='goWriter(\""+message.textno+"\")'>点我写作</button></div>";
+                    var strVar = "<div class=\"alert status-info\" id=\""+message.date +"\">"+message.nickname+"正在写作"+message.title+"文章，一起来吗？<button onclick='goWriter(\""+message.textno+"\")'>点我写作</button></div>";
                     $(".alerts").append(strVar);
                 }
 
                 else if (message.type=="refuse") {
                     //个人主页，收到提示 小组消息 您的申请被拒绝了
-                    var strVar = " <div class=\"alert status-error\" id=\""+"message.data" +"\">您关于文章"+message.title+"协同写作申请被拒绝了</div>";
+                    var strVar = " <div class=\"alert status-error\" id=\""+message.data +"\">您关于文章"+message.title+"协同写作申请被拒绝了</div>";
                     $(".alerts").append(strVar);
                 }
 
             })
         }).then( function () {
             $(".alert").on("click", function() {
-                var message={time:$(this).attr('id')};
+                var message={time:$(this).attr('id'),username:<%=loginUser.getUsername()%>};
                 $.post("",message).then(function (data) {
                     console.log(message);
                 })
@@ -344,7 +344,11 @@
         })
         //省略过长的文本
         Vue.filter("snippet",function(value){
-            return value.slice(0,100)+"..."
+            if (value) {
+                return value.slice(0, 100) + "..."
+            }else {
+                return value
+            }
         })
     </script>
     <style>
