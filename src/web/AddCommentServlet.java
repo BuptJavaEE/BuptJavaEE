@@ -48,7 +48,7 @@ public class AddCommentServlet extends HttpServlet {
             JsonObject jsonObject = JsonParser.parseString(acceptjson).getAsJsonObject();
 
             //取东西
-            int textno = jsonObject.get("textno").getAsInt();
+            String textno = jsonObject.get("textno").getAsString();
             String title = jsonObject.get("title").getAsString();
             String nickname = jsonObject.get("user").getAsString();
 
@@ -64,15 +64,14 @@ public class AddCommentServlet extends HttpServlet {
             UserDao userDao = new UserDaoImpl();
             List<Integer> authors = new ArrayList<>();
             String name = null;
-            int groupid = articleDao.queryGroupidByTextno(textno);
+            String groupid = articleDao.queryGroupidByTextno(textno);
             authors = groupDao.queryAuthorsByGroupId(groupid);
 
             //插入消息
-            for (int i = 0; i < authors.size(); i++) {
-                int id = authors.get(i);
+            for (int id : authors) {
                 User tempuser = userDao.queryUserByUserId(id);
                 name = tempuser.getUsername();
-                Message message = new Message("suggest", title, nickname, name);
+                Message message = new Message("suggest", title, nickname, name, null);
                 new MessageDaoImpl().saveMessage(message);
             }
 

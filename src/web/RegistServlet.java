@@ -38,7 +38,7 @@ public class RegistServlet extends HttpServlet {
             else{
                 //可用
 //                调用Service保存到数据库
-                userService.registUser(new User(null, username, password, nickname));
+                userService.registUser(new User(0, username, password, nickname));
 //
 //        跳到登录页面 login.html
                 resp.sendRedirect("/BuptJavaEE_war_exploded/pages/User/login.html");

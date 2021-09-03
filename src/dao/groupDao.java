@@ -15,12 +15,12 @@ public interface groupDao {
      * @param groupid
      * @return
      */
-    public String queryGroupByGroupId(int groupid);
+    public String queryGroupByGroupId(String groupid);
 
     /**
      * 根据小组号查询相关人员
      * @param groupid
      * @return
      */
-    public List<Integer> queryAuthorsByGroupId(int groupid);
+    public List<Integer> queryAuthorsByGroupId(String groupid);
 }

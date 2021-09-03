@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class groupDaoImpl implements groupDao {
     @Override
-    public String queryGroupByGroupId(int groupid) {
+    public String queryGroupByGroupId(String groupid) {
         List<Map<String, Object>> list = new ArrayList<>();
         MongoDao mongoDao = new MongoDaoImpl();
         MongoDatabase db = MongoHelper.getMongoDataBase();
@@ -36,7 +36,7 @@ public class groupDaoImpl implements groupDao {
     }
 
     @Override
-    public List<Integer> queryAuthorsByGroupId(int groupid) {
+    public List<Integer> queryAuthorsByGroupId(String groupid) {
         List<Map<String, Object>> list = new ArrayList<>();
         List<Integer> authorlist = new ArrayList<>();
         MongoDao mongoDao = new MongoDaoImpl();
@@ -45,8 +45,8 @@ public class groupDaoImpl implements groupDao {
         BasicDBObject leaderObj = new BasicDBObject("groupid", groupid);
         try {
             list = mongoDao.queryByDoc(db, table, leaderObj);
-            for (int i = 0; i < list.size(); i++) {
-                int id = Integer.parseInt(list.get(i).get("id").toString());
+            for (Map<String, Object> stringObjectMap : list) {
+                Integer id = Integer.valueOf(stringObjectMap.get("id").toString());
                 authorlist.add(id);
             }
         } catch (Exception e) {
