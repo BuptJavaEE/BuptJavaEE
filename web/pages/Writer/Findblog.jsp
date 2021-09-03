@@ -177,7 +177,7 @@
                 alert("申请已发送")
                 var message = {type:'apply',title:title,textno:textno,username:'<%=loginUser.getUsername()%>',nickname:'<%=loginUser.getNickname()%>'}
                 console.log(message)
-                this.$http.post("addmessagesservlet",apply).then(function (data) {
+                this.$http.post("addmessagesservlet",message).then(function (data) {
                 })
             }
         },

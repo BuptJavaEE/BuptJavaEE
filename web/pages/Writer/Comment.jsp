@@ -63,7 +63,7 @@
     <div id="comment">
         <ul class="list-group">
             <li class="list-group-item" v-for="item in list" :key="item.id">
-                <span class="badge">评论人：{{ item.nickname }}</span>
+                <span class="badge">评论人：{{ item.username}}</span>
                 {{ item.content }}
             </li>
         </ul>
@@ -71,7 +71,7 @@
     <div v-show="permission === 'true'">
         <div class="form-group">
             <label>评论人：</label>
-            <input type="text" class="form-control" v-model="user">
+            <input disabled="disabled" type="text" class="form-control" v-model="user">
         </div>
         <div class="form-group">
             <label>评论内容：</label>
@@ -176,7 +176,6 @@
         },
         created(){
             var blog=JSON.parse(localStorage.getItem('blog')||'[]')
-            console.log(blog)
             this.title=blog.title
             this.context=blog.content
             this.permission=blog.permission
@@ -185,6 +184,7 @@
             console.log(this.permission)
             var thisblog={title:this.title,context:this.context,username:this.username,textno:this.textno};
             this.$http.post("showcommentservlet",JSON.stringify(thisblog));//浏览次数加一
+            console.log(thisblog)
             this.loadComments();
         }
 

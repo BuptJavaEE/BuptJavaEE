@@ -189,8 +189,8 @@
                     <div class="blog">
                     <h2 v-html="highlight(blog.textname)"></h2>
                     <br/>
-                    <article>{{blog.text|snippet}}</article>
-                        <button class="butt" v-on:click="goComment(blog.textname,blog.text)"><span class="glyphicon glyphicon-file"></span>查看</button>
+                    <article>{{blog.content|snippet}}</article>
+                        <button class="butt" v-on:click="goComment(blog.textname,blog.content,'false',blog.textno)"><span class="glyphicon glyphicon-file"></span>查看</button>
                     </div>
                 </blog>
         </div>
@@ -202,11 +202,11 @@
         <p class="message">消息提示</p>
 
             <section class="alerts">
-                <div class="alert status-primary">有人对您的文章提出了建议，点我<a>查看建议</a></div>
-                <div class="alert status-secondary">xx申请加入您的xx项目与您一起写作<a>查看申请</a></div>
-                <div class="alert status-info">xx正在写作xx文章，一起来吗？<a>点我写作</a></div>
-                <div class="alert status-success">您的协同协作申请已经通过</div>
-                <div class="alert status-error">您的协同写作申请被拒绝了</div>
+<%--                <div class="alert status-primary">有人对您的文章提出了建议，点我<a>查看建议</a></div>--%>
+<%--                <div class="alert status-secondary">xx申请加入您的xx项目与您一起写作<a>查看申请</a></div>--%>
+<%--                <div class="alert status-info">xx正在写作xx文章，一起来吗？<a>点我写作</a></div>--%>
+<%--                <div class="alert status-success">您的协同协作申请已经通过</div>--%>
+<%--                <div class="alert status-error">您的协同写作申请被拒绝了</div>--%>
             </section>
     </aside>
 
@@ -216,11 +216,12 @@
 <%--信息处理模块--%>
 <script>
     var messages;
-    function goComment(title,body,permission){
-        console.log("点击事件触发")
-        commentblog={title:title,content:body,permission:permission}
-        localStorage.setItem('blog',JSON.stringify(commentblog))
-        window.location.href="pages/Writer/Comment.jsp"
+    function goComment(title, body ,permission,textno) {
+        //跳转到评论页面
+        commentblog = {title: title, content: body,permission: permission,textno: textno}
+        console.log(commentblog)
+        localStorage.setItem('blog', JSON.stringify(commentblog))
+        window.location.href = "pages/Writer/Comment.jsp"
     }
     //缺servlet响应
     function access(username,nickname,textno,title){
@@ -250,37 +251,40 @@
                 console.log(message)
                 if (message.type=="pass") {
                     //个人主页，收到消息提示，我的申请通过了 能加入别人小组
-                    var str = "<div class=\"alert status-success\">您有关文章"+message.title+"的协作申请已经通过</div>"
+                    var str = "<div class=\"alert status-success\" id=\""+"message.data" +"\">您有关文章"+message.title+"的协作申请已经通过</div>"
                     $(".alerts").append(str);
                 }
 
                 else if (message.type=="suggest"){
                     //个人主页，收到消息提示 有人给我的作品给出了建议
-                    var str = "<div class=\"alert status-primary\">有人对您的文章提出了建议，点我<button onclick='goComment(\""+message.title+"\",\"缺数据库支持\",true)'>查看建议</button></div>"
+                    var str = "<div class=\"alert status-primary\" id=\""+"message.data" +"\">有人对您的文章提出了建议，点我<button onclick='goComment(\""+message.title+"\",\"……\",true,\""+message.textno+"\")'>查看建议</button></div>"
                     $(".alerts").append(str);
                 }
 
                 else if (message.type=="apply"){
                     //个人主页，收到提示 有人申请加入小组
-                    var strVar="<div class=\"alert status-secondary\">"+message.nickname+"申请加入您的"+message.title+"文章与您的小组一起写作<button class='access' onclick='access(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>接受</button><button class='refuse' onclick='refuse(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>拒绝</button></div>"
+                    var strVar="<div class=\"alert status-secondary\" id=\""+"message.data" +"\">"+message.nickname+"申请加入您的"+message.title+"文章与您的小组一起写作<button class='access' onclick='access(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>接受</button><button class='refuse' onclick='refuse(\""+message.username+"\",\""+message.nickname+"\",\""+message.textno+"\",\""+message.title+"\")'>拒绝</button></div>"
                     $(".alerts").append(strVar);
 
                 }else if (message.type=="writing") {
                     //个人主页，收到提示 小组消息 有人正在进行协同写作
-                    var strVar = "<div class=\"alert status-info\">"+message.nickname+"正在写作"+message.title+"文章，一起来吗？<button onclick='goWriter(\""+message.textno+"\")'>点我写作</button></div>";
+                    var strVar = "<div class=\"alert status-info\" id=\""+"message.data" +"\">"+message.nickname+"正在写作"+message.title+"文章，一起来吗？<button onclick='goWriter(\""+message.textno+"\")'>点我写作</button></div>";
                     $(".alerts").append(strVar);
                 }
 
                 else if (message.type=="refuse") {
                     //个人主页，收到提示 小组消息 您的申请被拒绝了
-                    var strVar = " <div class=\"alert status-error\">您关于文章"+message.title+"协同写作申请被拒绝了</div>";
+                    var strVar = " <div class=\"alert status-error\" id=\""+"message.data" +"\">您关于文章"+message.title+"协同写作申请被拒绝了</div>";
                     $(".alerts").append(strVar);
                 }
 
             })
         }).then( function () {
             $(".alert").on("click", function() {
-
+                var message={time:$(this).attr('id')};
+                $.post("",message).then(function (data) {
+                    console.log(message);
+                })
                 $(this).hide("slow");
             });
         })
@@ -309,11 +313,13 @@
                     return val;
                 }
                 ,
-                goComment(title, body) {
-                    commentblog = {title: title, content: body}
+                goComment(title, body ,permission,textno) {
+                    //跳转到评论页面
+                    commentblog = {title: title, content: body,permission: permission,textno: textno}
+                    console.log(commentblog)
                     localStorage.setItem('blog', JSON.stringify(commentblog))
                     window.location.href = "pages/Writer/Comment.jsp"
-                }
+                },
             },
             computed:{
               filterblogs:function(){
@@ -348,6 +354,7 @@
         }
         #show_blogs{
             margin: 0 auto;
+            width: 100%;
         }
         .blog{
             /*经测试 该颜色会和背景颜色叠加导致较差的效果*/
