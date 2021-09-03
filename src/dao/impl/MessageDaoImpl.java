@@ -59,24 +59,6 @@ public class MessageDaoImpl implements MessageDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        BasicDBObject dateObj = new BasicDBObject("standardDate","a");
-        try {
-            updatelist = mongoDao.queryByDoc(db,table,dateObj);
-            if(updatelist.size() == 1){
-                String json = new Gson().toJson(updatelist.get(0).get("_id"));
-                JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-                long timestamp = jsonObject.get("timestamp").getAsLong() * 1000L;
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date = new Date(timestamp);
-                String times = format.format(date.getTime());
-                BasicDBObject update1Obj = new BasicDBObject("date",date);
-                BasicDBObject standardDateObj = new BasicDBObject("standardDate",times);
-                mongoDao.updateOne(db,table,dateObj,update1Obj);
-                mongoDao.updateOne(db,table,dateObj,standardDateObj);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

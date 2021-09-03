@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.DataInput;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -74,7 +75,9 @@ public class AddCommentServlet extends HttpServlet {
                 User tempuser = userDao.queryUserByUserId(id);
                 name = tempuser.getUsername();
                 Date date = new Date();
-                Message message = new Message("suggest", title, nickname, name,textno,"a",date);
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String times = format.format(date.getTime());
+                Message message = new Message("suggest", title, nickname, name,textno,times,date);
                 new MessageDaoImpl().saveMessage(message);
             }
 

@@ -134,4 +134,12 @@ public class test {
             System.out.println(times);
         }
     }
+    @Test
+    public void test3(){
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String times = format.format(date.getTime());
+        System.out.println(date);
+        System.out.println(times);
+    }
 }
