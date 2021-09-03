@@ -15,9 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.DataInput;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,7 +73,8 @@ public class AddCommentServlet extends HttpServlet {
             for (int id : authors) {
                 User tempuser = userDao.queryUserByUserId(id);
                 name = tempuser.getUsername();
-                Message message = new Message("suggest", title, nickname, name, null);
+                Date date = new Date();
+                Message message = new Message("suggest", title, nickname, name,textno,"a",date);
                 new MessageDaoImpl().saveMessage(message);
             }
 

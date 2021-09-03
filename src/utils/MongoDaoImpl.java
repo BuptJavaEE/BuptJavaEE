@@ -27,9 +27,7 @@ public class MongoDaoImpl implements MongoDao {
         FindIterable<Document> iterable = collection.find(query);
 
         Map<String, Object> jsonStrToMap = null;
-        MongoCursor<Document> cursor = iterable.iterator();
-        while (cursor.hasNext()) {
-            Document user = cursor.next();
+        for (Document user : iterable) {
             String jsonString = user.toJson();
             jsonStrToMap = JsonStrToMap.jsonStrToMap(jsonString);// 这里用到我自己写的方法,主要是包json字符串转换成map格式,为后面做准备,方法放在后面
         }
@@ -46,9 +44,7 @@ public class MongoDaoImpl implements MongoDao {
          */
 
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        MongoCursor<Document> cursor = iterable.iterator();
-        while (cursor.hasNext()) {
-            Document user = cursor.next();
+        for (Document user : iterable) {
             String jsonString = user.toJson();
             Map<String, Object> jsonStrToMap = JsonStrToMap.jsonStrToMap(jsonString);
             list.add(jsonStrToMap);
@@ -61,9 +57,7 @@ public class MongoDaoImpl implements MongoDao {
         FindIterable<Document> iterable = collection.find();
 
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        MongoCursor<Document> cursor = iterable.iterator();
-        while (cursor.hasNext()) {
-            Document user = cursor.next();
+        for (Document user : iterable) {
             String jsonString = user.toJson();
             Map<String, Object> jsonStrToMap = JsonStrToMap.jsonStrToMap(jsonString);
             list.add(jsonStrToMap);

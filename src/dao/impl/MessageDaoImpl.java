@@ -1,6 +1,8 @@
 package dao.impl;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoDatabase;
 import dao.MessageDao;
@@ -10,9 +12,8 @@ import utils.MongoDao;
 import utils.MongoDaoImpl;
 import utils.MongoHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 类<code>MessageDaoImpl</code>用于:实现消息提醒类相关操作的一系列函数
@@ -46,6 +47,7 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public void saveMessage(Message message) {
+        List<Map<String,Object>> updatelist;
         MongoDao mongoDao = new MongoDaoImpl();
         MongoDatabase db = MongoHelper.getMongoDataBase();
         String table = "message";
@@ -54,6 +56,24 @@ public class MessageDaoImpl implements MessageDao {
         try {
             if (mongoDao.insert(db, table, document))
                 System.out.println("插入成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        BasicDBObject dateObj = new BasicDBObject("standardDate","a");
+        try {
+            updatelist = mongoDao.queryByDoc(db,table,dateObj);
+            if(updatelist.size() == 1){
+                String json = new Gson().toJson(updatelist.get(0).get("_id"));
+                JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
+                long timestamp = jsonObject.get("timestamp").getAsLong() * 1000L;
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = new Date(timestamp);
+                String times = format.format(date.getTime());
+                BasicDBObject update1Obj = new BasicDBObject("date",date);
+                BasicDBObject standardDateObj = new BasicDBObject("standardDate",times);
+                mongoDao.updateOne(db,table,dateObj,update1Obj);
+                mongoDao.updateOne(db,table,dateObj,standardDateObj);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

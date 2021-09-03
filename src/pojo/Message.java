@@ -1,5 +1,9 @@
 package pojo;
 
+import org.bson.types.ObjectId;
+
+import java.util.Date;
+
 /**
  * 类<code>Doc</code>用于：TODO
  *
@@ -13,6 +17,8 @@ public class Message {
     private String nickname; //昵称(当消息类型为writing或apply时可用)
     private String username; //消息所有者的用户名
     private String textno; //文章号
+    private String standardDate; //标准时间
+    private Date date; //CST表示时间
 
     public String getType() {
         return type;
@@ -54,15 +60,33 @@ public class Message {
         this.textno = textno;
     }
 
+    public String getStandardDate() {
+        return standardDate;
+    }
+
+    public void setStandardDate(String standardDate) {
+        this.standardDate = standardDate;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public Message() {
     }
 
-    public Message(String type, String title, String nickname, String username, String textno) {
+    public Message(String type, String title, String nickname, String username, String textno, String standardDate, Date date) {
         this.type = type;
         this.title = title;
         this.nickname = nickname;
         this.username = username;
         this.textno = textno;
+        this.standardDate = standardDate;
+        this.date = date;
     }
 
     @Override
@@ -72,7 +96,9 @@ public class Message {
                 ", title='" + title + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", username='" + username + '\'' +
-                ", textno=" + textno +
+                ", textno='" + textno + '\'' +
+                ", standardDate='" + standardDate + '\'' +
+                ", date=" + date +
                 '}';
     }
 }
