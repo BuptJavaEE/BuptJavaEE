@@ -33,8 +33,8 @@ public class MessageServiceImpl implements MessageService {
      * @param username
      */
     @Override
-    public void removeMessage(String username) {
+    public void removeMessage(String username,String date) {
         MessageDao messageDao = new MessageDaoImpl();
-        messageDao.deleteMessage(username);
+        messageDao.deleteMessage(username,date);
     }
 }

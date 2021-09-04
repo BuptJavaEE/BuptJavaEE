@@ -63,11 +63,11 @@ public class MessageDaoImpl implements MessageDao {
     }
 
     @Override
-    public void deleteMessage(String username) {
+    public void deleteMessage(String username,String date) {
         MongoDao mongoDao = new MongoDaoImpl();
         MongoDatabase db = MongoHelper.getMongoDataBase();
         String table = "message";
-        BasicDBObject usernameObj = new BasicDBObject("username", username);
+        BasicDBObject usernameObj = new BasicDBObject("username", username).append("date",date);
         try {
             if (mongoDao.delete(db, table, usernameObj))
                 System.out.println("删除成功！");

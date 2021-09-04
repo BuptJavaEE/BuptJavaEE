@@ -9,5 +9,5 @@ package service;
  */
 public interface MessageService {
     public String loadMessage(String username);
-    public void removeMessage(String username);
+    public void removeMessage(String username,String date);
 }

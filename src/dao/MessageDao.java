@@ -29,5 +29,5 @@ public interface MessageDao {
      * 删除消息(已读的消息直接删除)
      * @param username
      */
-    public void deleteMessage(String username);
+    public void deleteMessage(String username,String date);
 }
