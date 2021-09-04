@@ -7,10 +7,14 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import dao.CommentDao;
+import dao.impl.ArticleDaoImpl;
+import dao.impl.CommentDaoImpl;
 import org.bson.BsonTimestamp;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.junit.Test;
+import pojo.Article;
 import pojo.Message;
 import pojo.User;
 import utils.JsonStrToMap;
@@ -141,5 +145,20 @@ public class test {
         String times = format.format(date.getTime());
         System.out.println(date);
         System.out.println(times);
+    }
+    @Test
+    public void test4(){
+        List<Article> list = new ArticleDaoImpl().queryAllArticles();
+        System.out.println(list.get(0).getBrowsertimes());
+        System.out.println(list);
+    }
+    @Test
+    public void test5(){
+        CommentDao commentDao = new CommentDaoImpl();
+        int allpoints = commentDao.getAllpoints("1");
+        int count = commentDao.getCommentCount("1");
+        System.out.println(allpoints);
+        System.out.println(count);
+        int averpoints = allpoints/count;
     }
 }

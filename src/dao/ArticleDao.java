@@ -37,4 +37,17 @@ public interface ArticleDao {
      * @return
      */
     public List<Article> queryAllArticles();
+
+    /**
+     * 自增评论数
+     * @param textno
+     */
+    public void incCommentCount(String textno);
+
+    /**
+     * 更新分数
+     * @param textno
+     * @param averagepoint
+     */
+    public void updateAverPoints(String textno,double averagepoint);
 }

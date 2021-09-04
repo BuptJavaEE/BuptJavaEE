@@ -2,10 +2,13 @@ package dao.impl;
 
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import dao.CommentDao;
 import org.bson.Document;
 import pojo.Comment;
+import utils.JsonStrToMap;
 import utils.MongoDao;
 import utils.MongoDaoImpl;
 import utils.MongoHelper;
@@ -58,4 +61,37 @@ public class CommentDaoImpl implements CommentDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public int getCommentCount(String textno) {
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "comment";
+        BasicDBObject doc = new BasicDBObject("textno",textno);
+        MongoCollection<Document> collection = db.getCollection(table);
+        FindIterable<Document> iterable = collection.find(doc);
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        for (Document user : iterable) {
+            String jsonString = user.toJson();
+            Map<String, Object> jsonStrToMap = JsonStrToMap.jsonStrToMap(jsonString);
+            list.add(jsonStrToMap);
+        }
+        return list.size();
+    }
+
+    @Override
+    public int getAllpoints(String textno) {
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "comment";
+        int allpoints = 0;
+        BasicDBObject doc = new BasicDBObject("textno",textno);
+        MongoCollection<Document> collection = db.getCollection(table);
+        FindIterable<Document> iterable = collection.find(doc);
+        for (Document user : iterable) {
+            String jsonString = user.toJson();
+            Map<String, Object> jsonStrToMap = JsonStrToMap.jsonStrToMap(jsonString);
+            allpoints += Integer.parseInt(jsonStrToMap.get("point").toString());
+        }
+        return allpoints;
+    }
+
 }

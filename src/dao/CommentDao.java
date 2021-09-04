@@ -24,4 +24,18 @@ public interface CommentDao {
      * @param comment
      */
     public void saveComment(Comment comment);
+
+    /**
+     * 获取对应文章的评论个数
+     * @param textno
+     * @return 评论个数
+     */
+    public int getCommentCount(String textno);
+
+    /**
+     * 获取一篇文章的所有评分
+     * @param textno
+     * @return
+     */
+    public int getAllpoints(String textno);
 }

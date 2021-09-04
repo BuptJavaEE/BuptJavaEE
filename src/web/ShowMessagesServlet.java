@@ -23,7 +23,6 @@ public class ShowMessagesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try{
-            System.out.println("收到message展示请求");
             resp.setContentType("application/json;charset=utf-8");
             PrintWriter out = resp.getWriter();
             User loginUser=(User)req.getSession().getAttribute("User");

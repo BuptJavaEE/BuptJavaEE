@@ -8,13 +8,14 @@ package pojo;
  * @date 2021-09-02-09
  */
 public class Comment {
-    private int id; //发表时间
+    private int id; //没有的狗东西
     private String textno; //文章编号
     private String username; //评论人的名称
     private String content; //评论内容
     private String title; //文章标题
     private String context; //不知道干啥用
     private int point; //打分分数
+    private String date; //评论发表日期
 
     public int getId() {
         return id;
@@ -72,10 +73,18 @@ public class Comment {
         this.point = point;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public Comment() {
     }
 
-    public Comment(int id, String textno, String username, String content, String title, String context, int point) {
+    public Comment(int id, String textno, String username, String content, String title, String context, int point,String date) {
         this.id = id;
         this.textno = textno;
         this.username = username;
@@ -83,6 +92,7 @@ public class Comment {
         this.title = title;
         this.context = context;
         this.point = point;
+        this.date =date;
     }
 
     @Override

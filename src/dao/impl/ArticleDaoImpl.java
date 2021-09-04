@@ -95,19 +95,51 @@ public class ArticleDaoImpl implements ArticleDao {
     @Override
     public List<Article> queryAllArticles() {
         MongoDatabase db = MongoHelper.getMongoDataBase();
-        String table = "articles";
+        String table = "article";
         MongoDao mongoDao = new MongoDaoImpl();
         List<Article> list = new ArrayList<>();
         List<Map<String,Object>> temp = new ArrayList<>();
         try {
             temp = mongoDao.queryAll(db,table);
             for(int i = 0; i<temp.size();i++){
-                String json = new Gson().toJson(temp);
-                list.add(new Gson().fromJson(json,Article.class));
+                String json = new Gson().toJson(temp.get(i));
+                Article article = new Gson().fromJson(json,Article.class);
+                list.add(article);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
+
+    @Override
+    public void incCommentCount(String textno) {
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "article";
+        BasicDBObject whereDoc = new BasicDBObject("textno",textno);
+        BasicDBObject updateDoc = new BasicDBObject("commentCount",1);
+        BasicDBObject resDoc = new BasicDBObject("$inc",updateDoc);
+        MongoCollection<Document> collection = db.getCollection(table);
+        try {
+            UpdateResult updateManyResult = collection.updateMany(whereDoc, resDoc);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateAverPoints(String textno, double averagepoint) {
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "article";
+        BasicDBObject whereDoc = new BasicDBObject("textno",textno);
+        BasicDBObject updateDoc = new BasicDBObject("averagepoint",averagepoint);
+        BasicDBObject resDoc = new BasicDBObject("$set",updateDoc);
+        MongoCollection<Document> collection = db.getCollection(table);
+        try {
+            UpdateResult updateManyResult = collection.updateMany(whereDoc, resDoc);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

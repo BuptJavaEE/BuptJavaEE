@@ -45,26 +45,39 @@ public class AddCommentServlet extends HttpServlet {
             }
             br.close();
 
+            //初始化
+            ArticleDao articleDao = new ArticleDaoImpl();
+            groupDao groupDao = new groupDaoImpl();
+            UserDao userDao = new UserDaoImpl();
             //获取到的json字符串
             String acceptjson = sb.toString();
-            System.out.println("评论"+acceptjson);
+            System.out.println("评论" + acceptjson);
             JsonObject jsonObject = JsonParser.parseString(acceptjson).getAsJsonObject();
 
             //取东西
             String textno = jsonObject.get("textno").getAsString();
             String title = jsonObject.get("title").getAsString();
             String nickname = jsonObject.get("user").getAsString();
+            Date date = new Date();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String times = format.format(date.getTime());
 
             //插入评论
-            Comment comment = new Comment(jsonObject.get("id").getAsInt(), textno, jsonObject.get("user").getAsString(), jsonObject.get("content").getAsString(), title,jsonObject.get("context").getAsString(), jsonObject.get("point").getAsInt());
+            Comment comment = new Comment(jsonObject.get("id").getAsInt(), textno, jsonObject.get("user").getAsString(), jsonObject.get("content").getAsString(), title, jsonObject.get("context").getAsString(), jsonObject.get("point").getAsInt(),times);
 
             CommentDao commentDao = new CommentDaoImpl();
             commentDao.saveComment(comment);
 
+            //对应文章评论数+1
+            articleDao.incCommentCount(textno);
+
+            //更新对应文章均分
+            int allpoints = commentDao.getAllpoints(textno);
+            int count = commentDao.getCommentCount(textno);
+            int averpoints = allpoints/count;
+            articleDao.updateAverPoints(textno,averpoints);
+
             //奇怪的初始化
-            ArticleDao articleDao = new ArticleDaoImpl();
-            groupDao groupDao = new groupDaoImpl();
-            UserDao userDao = new UserDaoImpl();
             List<Integer> authors = new ArrayList<>();
             String name = null;
             String groupid = articleDao.queryGroupidByTextno(textno);
@@ -74,10 +87,10 @@ public class AddCommentServlet extends HttpServlet {
             for (int id : authors) {
                 User tempuser = userDao.queryUserByUserId(id);
                 name = tempuser.getUsername();
-                Date date = new Date();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String times = format.format(date.getTime());
-                Message message = new Message("suggest", title, nickname, name,textno,times,date.toString());
+                Date date1 = new Date();
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String times1 = format1.format(date.getTime());
+                Message message = new Message("suggest", title, nickname, name, textno, times1, date1.toString());
                 new MessageDaoImpl().saveMessage(message);
             }
 

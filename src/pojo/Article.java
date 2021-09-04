@@ -9,10 +9,13 @@ package pojo;
  */
 public class Article {
     private String textname; //文章标题
-    private String text; //文章内容
+    private String text; //没屁用
     private String textno; //文章编号
     private String groupid; //小组编号
+    private String content; //文章内容
     private int browsertimes; //浏览次数
+    private int commentCount; //评论次数
+    private double averagepoint; //平均分
 
     public String getTextname() {
         return textname;
@@ -54,15 +57,42 @@ public class Article {
         this.browsertimes = browsertimes;
     }
 
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public double getAveragepoint() {
+        return averagepoint;
+    }
+
+    public void setAveragepoint(double averagepoint) {
+        this.averagepoint = averagepoint;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Article() {
     }
 
-    public Article(String textname, String text, String textno, String groupid, int browsertimes) {
+    public Article(String textname, String text, String textno, String groupid, String content,int browsertimes, int commentCount, double averagepoint) {
         this.textname = textname;
         this.text = text;
         this.textno = textno;
         this.groupid = groupid;
+        this.content = content;
         this.browsertimes = browsertimes;
+        this.commentCount = commentCount;
+        this.averagepoint = averagepoint;
     }
 
     @Override
