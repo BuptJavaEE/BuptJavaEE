@@ -65,6 +65,7 @@
             <li class="list-group-item" v-for="item in list" :key="item.id">
                 <span class="badge">评论人：{{ item.username}}</span>
                 <div >{{item.content}}</div>
+                <div style="text-align: center">🕙{{item.time}}<div>
             </li>
         </ul>
 <%--作品评论区--%>
