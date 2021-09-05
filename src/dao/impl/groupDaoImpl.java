@@ -61,8 +61,11 @@ public class groupDaoImpl implements groupDao {
     public String AddMemberToGroup(String textno, String username) {
         MongoDatabase db = MongoHelper.getMongoDataBase();
         MongoDao mongoDao = new MongoDaoImpl();
+        //三个临时存储
         List<Map<String, Object>> list = new ArrayList<>();
         List<Map<String, Object>> list1 = new ArrayList<>();
+        List<Map<String, Object>> list2 = new ArrayList<>();
+        //用户id
         int id = 0;
         String resStr = null;
         String groupid = null;
@@ -77,13 +80,20 @@ public class groupDaoImpl implements groupDao {
             for (int i = 0; i < list.size(); i++) {
                 id = Integer.parseInt(list.get(0).get("id").toString());
             }
+            System.out.println("用户id " + id);
             list1 = mongoDao.queryByDoc(db, table2, textnoObj);
             for (int j = 0; j < list1.size(); j++) {
                 groupid = list1.get(0).get("groupid").toString();
-                groupleader = Integer.parseInt(list1.get(0).get("groupleader").toString());
             }
+            System.out.println("小组id " + groupid);
+            BasicDBObject groupidObj = new BasicDBObject("groupid", groupid);
+            list2 = mongoDao.queryByDoc(db, table1, groupidObj);
+            for (int k = 0; k < list2.size(); k++) {
+                groupleader = Integer.parseInt(list2.get(0).get("groupleader").toString());
+            }
+            System.out.println("组长 "+groupleader);
             BasicDBObject userIdObj = new BasicDBObject("id", id);
-            if (mongoDao.queryByDoc(db, table1, userIdObj) == null) {
+            if (mongoDao.queryByDoc(db, table1, userIdObj).size() == 0) {
                 //没有用户就插入
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("groupid", groupid);
@@ -91,7 +101,8 @@ public class groupDaoImpl implements groupDao {
                 jsonObject.addProperty("id", id);
                 String json = new Gson().toJson(jsonObject);
                 Document document = Document.parse(json);
-                mongoDao.insert(db, table1,document);
+                System.out.println("插入数据： "+json);
+                mongoDao.insert(db, table1, document);
                 resStr = "申请成功！";
             } else {
                 //有的话就返回

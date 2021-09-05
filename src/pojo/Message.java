@@ -17,6 +17,7 @@ public class Message {
     private String nickname; //昵称(当消息类型为writing或apply时可用)
     private String username; //消息所有者的用户名
     private String textno; //文章号
+    private String towho; //发给谁
     private String standardDate; //标准时间
     private String date; //CST表示时间
 
@@ -76,15 +77,24 @@ public class Message {
         this.date = date;
     }
 
+    public String getTowho() {
+        return towho;
+    }
+
+    public void setTowho(String towho) {
+        this.towho = towho;
+    }
+
     public Message() {
     }
 
-    public Message(String type, String title, String nickname, String username, String textno, String standardDate,String date) {
+    public Message(String type, String title, String nickname, String username, String textno, String towho,String standardDate,String date) {
         this.type = type;
         this.title = title;
         this.nickname = nickname;
         this.username = username;
         this.textno = textno;
+        this.towho = towho;
         this.standardDate = standardDate;
         this.date = date;
     }
@@ -97,6 +107,7 @@ public class Message {
                 ", nickname='" + nickname + '\'' +
                 ", username='" + username + '\'' +
                 ", textno='" + textno + '\'' +
+                ", towho='" + textno + '\'' +
                 ", standardDate='" + standardDate + '\'' +
                 ", date=" + date +
                 '}';

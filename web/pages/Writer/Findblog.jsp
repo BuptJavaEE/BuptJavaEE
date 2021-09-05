@@ -154,7 +154,7 @@
             test:"success"
         },
         created(){
-            this.$http.get('showarticleservlet').then(function(data){
+            this.$http.get('showallarticleservlet').then(function(data){
                 this.blogs = data.body.slice(0,10);
                 console.log(this.blogs);
             })

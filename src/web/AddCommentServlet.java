@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.DataInput;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,9 +73,12 @@ public class AddCommentServlet extends HttpServlet {
             articleDao.incCommentCount(textno);
 
             //更新对应文章均分
-            int allpoints = commentDao.getAllpoints(textno);
-            int count = commentDao.getCommentCount(textno);
-            int averpoints = allpoints/count;
+            double allpoints = commentDao.getAllpoints(textno);
+            double count = commentDao.getCommentCount(textno);
+            DecimalFormat df2  = new DecimalFormat("###.00");
+            double averpoint = allpoints/count;
+            String aver = df2.format(averpoint);
+            double averpoints = Double.parseDouble(aver);
             articleDao.updateAverPoints(textno,averpoints);
 
             //奇怪的初始化
@@ -90,7 +94,7 @@ public class AddCommentServlet extends HttpServlet {
                 Date date1 = new Date();
                 SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String times1 = format1.format(date.getTime());
-                Message message = new Message("suggest", title, nickname, name, textno, times1, date1.toString());
+                Message message = new Message("suggest", title, nickname, name, textno, null,times1, date1.toString());
                 new MessageDaoImpl().saveMessage(message);
             }
 

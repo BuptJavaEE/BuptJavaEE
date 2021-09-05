@@ -138,27 +138,94 @@ public class test {
             System.out.println(times);
         }
     }
+
     @Test
-    public void test3(){
+    public void test3() {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String times = format.format(date.getTime());
         System.out.println(date);
         System.out.println(times);
     }
+
     @Test
-    public void test4(){
+    public void test4() {
         List<Article> list = new ArticleDaoImpl().queryAllArticles();
         System.out.println(list.get(0).getBrowsertimes());
         System.out.println(list);
     }
+
     @Test
-    public void test5(){
+    public void test5() {
         CommentDao commentDao = new CommentDaoImpl();
         int allpoints = commentDao.getAllpoints("1");
         int count = commentDao.getCommentCount("1");
         System.out.println(allpoints);
         System.out.println(count);
-        int averpoints = allpoints/count;
+        int averpoints = allpoints / count;
+    }
+
+    @Test
+    public void test6() {
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        MongoDao mongoDao = new MongoDaoImpl();
+        List<Map<String, Object>> list = new ArrayList<>();
+        List<Map<String, Object>> list1 = new ArrayList<>();
+        List<Map<String, Object>> list2 = new ArrayList<>();
+        int id = 0;
+        String resStr = null;
+        String groupid = null;
+        int groupleader = 0;
+        String table = "user";
+        String table1 = "group";
+        String table2 = "article";
+        BasicDBObject userNameObj = new BasicDBObject("username", "abcdefg");
+        BasicDBObject textnoObj = new BasicDBObject("textno", "1");
+        try {
+            list = mongoDao.queryByDoc(db, table, userNameObj);
+            for (int i = 0; i < list.size(); i++) {
+                id = Integer.parseInt(list.get(0).get("id").toString());
+            }
+            System.out.println(list);
+            list1 = mongoDao.queryByDoc(db, table2, textnoObj);
+            System.out.println(list1);
+            for (int j = 0; j < list1.size(); j++) {
+                groupid = list1.get(0).get("groupid").toString();
+            }
+            BasicDBObject groupidObj = new BasicDBObject("groupid", groupid);
+            list2 = mongoDao.queryByDoc(db, table1, groupidObj);
+            for (int k = 0; k < list2.size(); k++) {
+                groupleader = Integer.parseInt(list2.get(0).get("groupleader").toString());
+            }
+            BasicDBObject userIdObj = new BasicDBObject("id", id);
+            if (mongoDao.queryByDoc(db, table1, userIdObj) == null) {
+                //没有用户就插入
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("groupid", groupid);
+                jsonObject.addProperty("groupleader", groupleader);
+                jsonObject.addProperty("id", id);
+                String json = new Gson().toJson(jsonObject);
+                Document document = Document.parse(json);
+                mongoDao.insert(db, table1, document);
+                resStr = "申请成功！";
+            } else {
+                //有的话就返回
+                resStr = "您已经在这个小组了！";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void test7(){
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "group";
+        BasicDBObject basicDBObject = new BasicDBObject("id",25033);
+        MongoDao mongoDao = new MongoDaoImpl();
+        try {
+            System.out.println(mongoDao.queryByDoc(db,table,basicDBObject).size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
