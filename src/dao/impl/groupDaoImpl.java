@@ -1,9 +1,11 @@
 package dao.impl;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoDatabase;
 import dao.groupDao;
+import org.bson.Document;
 import utils.MongoDao;
 import utils.MongoDaoImpl;
 import utils.MongoHelper;
@@ -53,5 +55,51 @@ public class groupDaoImpl implements groupDao {
             e.printStackTrace();
         }
         return authorlist;
+    }
+
+    @Override
+    public String AddMemberToGroup(String textno, String username) {
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        MongoDao mongoDao = new MongoDaoImpl();
+        List<Map<String, Object>> list = new ArrayList<>();
+        List<Map<String, Object>> list1 = new ArrayList<>();
+        int id = 0;
+        String resStr = null;
+        String groupid = null;
+        int groupleader = 0;
+        String table = "user";
+        String table1 = "group";
+        String table2 = "article";
+        BasicDBObject userNameObj = new BasicDBObject("username", username);
+        BasicDBObject textnoObj = new BasicDBObject("textno", textno);
+        try {
+            list = mongoDao.queryByDoc(db, table, userNameObj);
+            for (int i = 0; i < list.size(); i++) {
+                id = Integer.parseInt(list.get(0).get("id").toString());
+            }
+            list1 = mongoDao.queryByDoc(db, table2, textnoObj);
+            for (int j = 0; j < list1.size(); j++) {
+                groupid = list1.get(0).get("groupid").toString();
+                groupleader = Integer.parseInt(list1.get(0).get("groupleader").toString());
+            }
+            BasicDBObject userIdObj = new BasicDBObject("id", id);
+            if (mongoDao.queryByDoc(db, table1, userIdObj) == null) {
+                //没有用户就插入
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("groupid", groupid);
+                jsonObject.addProperty("groupleader", groupleader);
+                jsonObject.addProperty("id", id);
+                String json = new Gson().toJson(jsonObject);
+                Document document = Document.parse(json);
+                mongoDao.insert(db, table1,document);
+                resStr = "申请成功！";
+            } else {
+                //有的话就返回
+                resStr = "您已经在这个小组了！";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resStr;
     }
 }

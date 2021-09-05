@@ -21,4 +21,10 @@ public class CommentServiceImpl implements CommentService {
         CommentDao commentDao = new CommentDaoImpl();
         return commentDao.queryCommentsByUsername(username);
     }
+
+    @Override
+    public List<Comment> loadAllComments(String textno) {
+        CommentDao commentDao = new CommentDaoImpl();
+        return commentDao.queryAllComments(textno);
+    }
 }

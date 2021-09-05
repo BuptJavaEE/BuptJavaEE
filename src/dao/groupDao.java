@@ -23,4 +23,10 @@ public interface groupDao {
      * @return
      */
     public List<Integer> queryAuthorsByGroupId(String groupid);
+
+    /**
+     * 将用户加入小组
+     * @param textno
+     */
+    public String AddMemberToGroup(String textno,String username);
 }

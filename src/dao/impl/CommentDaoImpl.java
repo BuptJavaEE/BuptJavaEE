@@ -94,4 +94,26 @@ public class CommentDaoImpl implements CommentDao {
         return allpoints;
     }
 
+    @Override
+    public List<Comment> queryAllComments(String textno) {
+        List<Map<String, Object>> list = new ArrayList<>();//存储查询结果用的表
+        List<Comment> reslist = new ArrayList<>();//结果表
+        Comment comment = new Comment();//临时存储
+        MongoDao mongoDao = new MongoDaoImpl();
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        BasicDBObject usernameObj = new BasicDBObject("textno", textno);
+        String table = "comment";
+        try {
+            list = mongoDao.queryByDoc(db, table, usernameObj);
+            for (Map<String, Object> map : list) {
+                String Json = new Gson().toJson(map);
+                comment = new Gson().fromJson(Json, Comment.class);
+                reslist.add(comment);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reslist;
+    }
+
 }

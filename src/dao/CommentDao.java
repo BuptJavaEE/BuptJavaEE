@@ -38,4 +38,10 @@ public interface CommentDao {
      * @return
      */
     public int getAllpoints(String textno);
+
+    /**
+     * 查找一篇文章的所有评论
+     * @return
+     */
+    public List<Comment> queryAllComments(String textno);
 }

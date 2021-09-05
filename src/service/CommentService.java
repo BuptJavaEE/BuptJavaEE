@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface CommentService {
     public List<Comment> loadComments(String username);
+    public List<Comment> loadAllComments(String textno);
 }

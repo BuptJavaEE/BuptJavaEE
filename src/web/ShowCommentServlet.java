@@ -61,9 +61,8 @@ public class ShowCommentServlet extends HttpServlet {
             PrintWriter out = resp.getWriter();
             //连接数据库,获取评论
             JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
-            String username = jsonObject.get("username").getAsString();
             String textno = jsonObject.get("textno").getAsString();
-            List<Comment> comments = new CommentServiceImpl().loadComments(username);
+            List<Comment> comments = new CommentServiceImpl().loadAllComments(textno);
             Comment tempcomment = new Comment();
             List<String> res = new ArrayList<>();
             for (Comment comment : comments) {

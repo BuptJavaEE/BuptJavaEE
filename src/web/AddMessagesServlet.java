@@ -1,9 +1,14 @@
 package web;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import dao.MessageDao;
+import dao.groupDao;
 import dao.impl.MessageDaoImpl;
+import dao.impl.groupDaoImpl;
 import pojo.Message;
+import pojo.User;
 import service.impl.MessageServiceImpl;
 
 import javax.servlet.ServletException;
@@ -14,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 类<code>Doc</code>用于：TODO
@@ -24,6 +32,7 @@ import java.io.InputStreamReader;
  */
 @WebServlet("/addmessagesservlet")
 public class AddMessagesServlet extends HttpServlet {
+    String resStr = null;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //用于保存所获取到的数据流
@@ -38,16 +47,39 @@ public class AddMessagesServlet extends HttpServlet {
             br.close();
             //获取到的json字符串
             String acceptjson = sb.toString();
-            Message message = new Gson().fromJson(acceptjson,Message.class);
+            //日期
+            Date date = new Date();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String times = format.format(date.getTime());
+            //设置时间
+            JsonObject jsonObject = JsonParser.parseString(acceptjson).getAsJsonObject();
+            jsonObject.addProperty("date", date.toString());
+            jsonObject.addProperty("standardDate", times);
+            String textno = jsonObject.get("textno").getAsString();
+            String username = jsonObject.get("username").getAsString();
+            //判断
+            if (jsonObject.get("type").getAsString().equals("pass")) {
+                groupDao groupDao = new groupDaoImpl();
+                resStr = groupDao.AddMemberToGroup(textno, username);
+            } else if (jsonObject.get("type").getAsString().equals("refuse")) {
+
+            }
+            Message message = new Gson().fromJson(acceptjson, Message.class);
             MessageDao messageDao = new MessageDaoImpl();
             messageDao.saveMessage(message);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        try{
+            resp.setContentType("application/json;charset=utf-8");
+            PrintWriter out = resp.getWriter();
+            out.print(resStr);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
