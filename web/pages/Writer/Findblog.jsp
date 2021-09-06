@@ -178,6 +178,11 @@
                 var message = {type:'apply',title:title,textno:textno,username:'<%=loginUser.getUsername()%>',nickname:'<%=loginUser.getNickname()%>'}
                 console.log(message)
                 this.$http.post("addmessagesservlet",message).then(function (data) {
+                }).then(function(data){
+                    console.log(data);
+                })
+                this.$http.get("addmessagesservlet").then(function(data){
+                    console.log(data);
                 })
             }
         },

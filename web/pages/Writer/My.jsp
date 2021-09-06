@@ -279,9 +279,13 @@
                     var str = "<div class=\"alert status-primary\" id=\"" + message.date + "\">有人对您的文章《"+message.title +"》提出了建议，点我<button onclick='goComment(\"" + message.title + "\",\"……\",true,\"" + message.textno + "\")'>查看建议</button><br/><span class=\"glyphicon glyphicon-time\">"+message.standardDate+"</span></div>"
                     $(".alerts").prepend(str);
                 } else if (message.type == "apply") {
-                    //个人主页，收到提示 有人申请加入小组
-                    var strVar = "<div class=\"alert status-secondary\" id=\"" + message.date + "\">" + message.nickname + "申请加入您的《" + message.title + "》文章与您的小组一起写作<button class='access' onclick='access(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\")'>接受</button><button class='refuse' onclick='refuse(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\")'>拒绝</button><br/><span class=\"glyphicon glyphicon-time\">"+message.standardDate+"</span></div>"
-                    $(".alerts").prepend(strVar);
+                    //apply消息过滤
+                    if (message.username=="<%=loginUser.getUsername()%>"){
+
+                    }else if (message.towho=="<%=loginUser.getUsername()%>"){
+                        var strVar = "<div class=\"alert status-secondary\" id=\"" + message.date + "\">" + message.nickname + "申请加入您的《" + message.title + "》文章与您的小组一起写作<button class='access' onclick='access(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\")'>接受</button><button class='refuse' onclick='refuse(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\")'>拒绝</button><br/><span class=\"glyphicon glyphicon-time\">" + message.standardDate + "</span></div>"
+                        $(".alerts").prepend(strVar);
+                    }
 
                 } else if (message.type == "writing") {
                     //个人主页，收到提示 小组消息 有人正在进行协同写作
@@ -289,7 +293,7 @@
                     $(".alerts").prepend(strVar);
                 } else if (message.type == "refuse") {
                     //个人主页，收到提示 小组消息 您的申请被拒绝了
-                    var strVar = " <div class=\"alert status-error\" id=\"" + message.data + "\">您关于文章《" + message.title + "》协同写作申请被拒绝了<br/><span class=\"glyphicon glyphicon-time\">"+message.standardDate+"</span></div>";
+                    var strVar = " <div class=\"alert status-error\" id=\"" + message.date + "\">您关于文章《" + message.title + "》协同写作申请被拒绝了<br/><span class=\"glyphicon glyphicon-time\">"+message.standardDate+"</span></div>";
                     $(".alerts").prepend(strVar);
                 }
 
