@@ -26,7 +26,8 @@ public interface groupDao {
 
     /**
      * 将用户加入小组
-     * @param textno
+     * @param groupid
+     * @param username
      */
-    public String AddMemberToGroup(String textno,String username);
+    public String AddMemberToGroup(String groupid,String username);
 }

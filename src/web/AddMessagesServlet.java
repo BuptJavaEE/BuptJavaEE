@@ -77,7 +77,7 @@ public class AddMessagesServlet extends HttpServlet {
             //判断
             if (jsonObject.get("type").getAsString().equals("pass")) {
                 groupDao groupDao = new groupDaoImpl();
-                resStr = groupDao.AddMemberToGroup(textno, username);
+                resStr = groupDao.AddMemberToGroup(groupid, username);
             } else if (jsonObject.get("type").getAsString().equals("refuse")) {
 
             } else if (jsonObject.get("type").getAsString().equals("apply")) {

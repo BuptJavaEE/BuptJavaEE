@@ -18,6 +18,7 @@ public class Message {
     private String username; //消息所有者的用户名
     private String textno; //文章号
     private String towho; //发给谁
+    private String groupid; //发给哪个组
     private String standardDate; //标准时间
     private String date; //CST表示时间
 
@@ -85,16 +86,25 @@ public class Message {
         this.towho = towho;
     }
 
+    public String getGroupid() {
+        return groupid;
+    }
+
+    public void setGroupid(String groupid) {
+        this.groupid = groupid;
+    }
+
     public Message() {
     }
 
-    public Message(String type, String title, String nickname, String username, String textno, String towho,String standardDate,String date) {
+    public Message(String type, String title, String nickname, String username, String textno, String towho, String groupid, String standardDate, String date) {
         this.type = type;
         this.title = title;
         this.nickname = nickname;
         this.username = username;
         this.textno = textno;
         this.towho = towho;
+        this.groupid = groupid;
         this.standardDate = standardDate;
         this.date = date;
     }

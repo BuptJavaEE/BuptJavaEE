@@ -64,7 +64,7 @@ public class AddCommentServlet extends HttpServlet {
             String times = format.format(date.getTime());
 
             //插入评论
-            Comment comment = new Comment(jsonObject.get("id").getAsInt(), textno, jsonObject.get("user").getAsString(), jsonObject.get("content").getAsString(), title, jsonObject.get("context").getAsString(), jsonObject.get("point").getAsInt(),times);
+            Comment comment = new Comment(jsonObject.get("id").getAsInt(), textno, jsonObject.get("user").getAsString(), jsonObject.get("content").getAsString(), title, jsonObject.get("context").getAsString(), jsonObject.get("point").getAsInt(), times);
 
             CommentDao commentDao = new CommentDaoImpl();
             commentDao.saveComment(comment);
@@ -75,11 +75,11 @@ public class AddCommentServlet extends HttpServlet {
             //更新对应文章均分
             double allpoints = commentDao.getAllpoints(textno);
             double count = commentDao.getCommentCount(textno);
-            DecimalFormat df2  = new DecimalFormat("###.00");
-            double averpoint = allpoints/count;
+            DecimalFormat df2 = new DecimalFormat("###.00");
+            double averpoint = allpoints / count;
             String aver = df2.format(averpoint);
             double averpoints = Double.parseDouble(aver);
-            articleDao.updateAverPoints(textno,averpoints);
+            articleDao.updateAverPoints(textno, averpoints);
 
             //奇怪的初始化
             List<Integer> authors = new ArrayList<>();
@@ -94,7 +94,7 @@ public class AddCommentServlet extends HttpServlet {
                 Date date1 = new Date();
                 SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String times1 = format1.format(date.getTime());
-                Message message = new Message("suggest", title, nickname, name, textno, null,times1, date1.toString());
+                Message message = new Message("suggest", title, nickname, name, textno, null, groupid, times1, date1.toString());
                 new MessageDaoImpl().saveMessage(message);
             }
 
