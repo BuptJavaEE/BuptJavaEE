@@ -32,12 +32,13 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //  1、获取请求的参数
         String username = req.getParameter("username");
+        String password = req.getParameter("password");
         // 调用 userService.login()登录处理业务
-        User loginUser = new UserDaoImpl().queryUserByUsername(username);
+        User loginUser = new UserDaoImpl().queryUserByUsernameAndPassword(username,password);
         // 如果等于null,说明登录 失败!
         if(loginUser == null){
-            //跳回登陆界面
-            req.getRequestDispatcher("/pages/User/login.html").forward(req, resp);
+            //跳到错误页面
+            resp.sendRedirect("/BuptJavaEE_war_exploded/pages/User/login_error.jsp");
         }
         else{
             //登录 成功
