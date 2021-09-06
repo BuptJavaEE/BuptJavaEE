@@ -275,9 +275,9 @@
     }
 
     //缺servlet响应
-    function refuse(username, nickname, textno, title) {
+    function refuse(username, nickname, textno, title, groupid) {
         //1。向被拒绝的人发送该message 告知他申请被拒绝了
-        var message = {type: 'refuse', username: username, textno: textno, nickname: nickname, title: title}
+        var message = {type: 'refuse', username: username, textno: textno, nickname: nickname, title: title,groupid:groupid}
         console.log(message)
         $.post("addmessagesservlet", JSON.stringify(message));
     }
@@ -306,7 +306,7 @@
                     if (message.username == "<%=loginUser.getUsername()%>") {
 
                     } else if (message.towho == "<%=loginUser.getUsername()%>") {
-                        var strVar = "<div class=\"alert status-secondary\" id=\"" + message.date + "\">" + message.nickname + "申请加入您的《" + message.title + "》文章与您的小组一起写作<button class='access' onclick='access(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\",\"" + message.groupid + "\")'>接受</button><button class='refuse' onclick='refuse(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\")'>拒绝</button><br/><span class=\"glyphicon glyphicon-time\">" + message.standardDate + "</span></div>"
+                        var strVar = "<div class=\"alert status-secondary\" id=\"" + message.date + "\">" + message.nickname + "申请加入您的《" + message.title + "》文章与您的小组一起写作<button class='access' onclick='access(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\",\"" + message.groupid + "\")'>接受</button><button class='refuse' onclick='refuse(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title +"\""+message.groupid +"\")'>拒绝</button><br/><span class=\"glyphicon glyphicon-time\">" + message.standardDate + "</span></div>"
                         $(".alerts").prepend(strVar);
                     }
 
