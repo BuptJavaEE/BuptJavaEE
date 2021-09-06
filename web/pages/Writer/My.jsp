@@ -164,6 +164,8 @@
         /*}*/
 
     </style>
+    <%--气泡样式导入    --%>
+    <link rel="stylesheet" href="static/css/style-Mymassage.css">
 </head>
 <body>
 <%@include file="headleader.jsp" %>
@@ -185,6 +187,20 @@
     <a href="pages/User/login.html">
         <button class="butt">登出</button>
     </a>
+
+<%--气泡样式--%>
+    <ul class="bg-bubbles">
+        <li>Java</li>
+        <li>Jdbc</li>
+        <li>Tomcat</li>
+        <li>Mongodb</li>
+        <li>Mysql</li>
+        <li>Bootstrap</li>
+        <li>Vue</li>
+        <li>Node</li>
+        <li>Collaborater</li>
+        <li>SCSS</li>
+    </ul>
 </nav>
 <%--文章搜索展示端--%>
 <main>
