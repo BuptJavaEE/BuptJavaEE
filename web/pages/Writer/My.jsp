@@ -242,10 +242,10 @@
     }
 
     //缺servlet响应
-    function access(username, nickname, textno, title) {
+    function access(username, nickname, textno, title,groupid) {
         //1。在数据库中 将通过的人 加入文章写作小组
         //2。向通过的人发送message
-        var message = {type: 'pass', username: username, textno: textno, nickname: nickname, title: title}
+        var message = {type: 'pass',groupid:groupid,username: username, textno: textno, nickname: nickname, title: title}
         console.log(message);
         $.post("addmessagesservlet", JSON.stringify(message));
 
@@ -283,7 +283,7 @@
                     if (message.username=="<%=loginUser.getUsername()%>"){
 
                     }else if (message.towho=="<%=loginUser.getUsername()%>"){
-                        var strVar = "<div class=\"alert status-secondary\" id=\"" + message.date + "\">" + message.nickname + "申请加入您的《" + message.title + "》文章与您的小组一起写作<button class='access' onclick='access(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\")'>接受</button><button class='refuse' onclick='refuse(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\")'>拒绝</button><br/><span class=\"glyphicon glyphicon-time\">" + message.standardDate + "</span></div>"
+                        var strVar = "<div class=\"alert status-secondary\" id=\"" + message.date + "\">" + message.nickname + "申请加入您的《" + message.title + "》文章与您的小组一起写作<button class='access' onclick='access(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\",\"" + message.groupid+ "\")'>接受</button><button class='refuse' onclick='refuse(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\")'>拒绝</button><br/><span class=\"glyphicon glyphicon-time\">" + message.standardDate + "</span></div>"
                         $(".alerts").prepend(strVar);
                     }
 
