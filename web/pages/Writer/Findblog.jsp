@@ -184,6 +184,9 @@
                 this.$http.get("addmessagesservlet").then(function(data){
                     console.log(data);
                 })
+                $.getJSON("addmessagesservlet").then(function (data){
+                    console.log(data)
+                })
             }
         },
         computed:{

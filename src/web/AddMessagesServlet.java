@@ -10,9 +10,6 @@ import dao.groupDao;
 import dao.impl.MessageDaoImpl;
 import dao.impl.groupDaoImpl;
 import pojo.Message;
-import pojo.User;
-import service.impl.MessageServiceImpl;
-import utils.MongoDao;
 import utils.MongoDaoImpl;
 import utils.MongoHelper;
 
@@ -40,7 +37,7 @@ import java.util.Map;
 @WebServlet("/addmessagesservlet")
 public class AddMessagesServlet extends HttpServlet {
     String resStr = null;
-
+    JsonObject jsonObject1 = new JsonObject();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //用于保存所获取到的数据流
@@ -59,36 +56,52 @@ public class AddMessagesServlet extends HttpServlet {
             Date date = new Date();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String times = format.format(date.getTime());
+            int id = 0;
             //设置时间
             JsonObject jsonObject = JsonParser.parseString(acceptjson).getAsJsonObject();
             jsonObject.addProperty("date", date.toString());
             jsonObject.addProperty("standardDate", times);
             String textno = jsonObject.get("textno").getAsString();
             String username = jsonObject.get("username").getAsString();
+            BasicDBObject userNameObj = new BasicDBObject("username", username);
+            MongoDatabase db = MongoHelper.getMongoDataBase();
+            MongoDaoImpl mongoDao = new MongoDaoImpl();
+            String table = "user";
+            List<Map<String, Object>> list = mongoDao.queryByDoc(db, table, userNameObj);
+            for (int i = 0; i < list.size(); i++) {
+                id = Integer.parseInt(list.get(0).get("id").toString());
+            }
+            BasicDBObject userIdObj = new BasicDBObject("id", id);
             //判断
             if (jsonObject.get("type").getAsString().equals("pass")) {
                 groupDao groupDao = new groupDaoImpl();
                 resStr = groupDao.AddMemberToGroup(textno, username);
-            }
-            else if (jsonObject.get("type").getAsString().equals("refuse")) {
+            } else if (jsonObject.get("type").getAsString().equals("refuse")) {
 
-            }
-            else if(jsonObject.get("type").getAsString().equals("apply")){
-                BasicDBObject textnoObj = new BasicDBObject("textno",textno);
-                MongoDao mongoDao = new MongoDaoImpl();
-                MongoDatabase db = MongoHelper.getMongoDataBase();
-                String table = "article";
-                List<Map<String,Object>> list = mongoDao.queryByDoc(db,table,textnoObj);
-                String groupid = list.get(0).get("groupid").toString();
+            } else if (jsonObject.get("type").getAsString().equals("apply")) {
+                BasicDBObject textnoObj = new BasicDBObject("textno", textno);
+                String table1 = "article";
+                List<Map<String, Object>> list1 = mongoDao.queryByDoc(db, table1, textnoObj);
+                String groupid = list1.get(0).get("groupid").toString();
                 String table2 = "group";
-                BasicDBObject groupidObj = new BasicDBObject("groupid",groupid);
-                List<Map<String,Object>> list1 = mongoDao.queryByDoc(db,table2,groupidObj);
-                int groupleaderid = Integer.parseInt(list1.get(0).get("groupleader").toString());
+                BasicDBObject groupidObj = new BasicDBObject("groupid", groupid);
+                List<Map<String, Object>> list2 = mongoDao.queryByDoc(db, table2, groupidObj);
+                int groupleaderid = Integer.parseInt(list2.get(0).get("groupleader").toString());
                 String table3 = "user";
-                BasicDBObject idObj = new BasicDBObject("id",groupleaderid);
-                List<Map<String,Object>> list2 = mongoDao.queryByDoc(db,table3,idObj);
-                String nickname = list2.get(0).get("username").toString();
-                jsonObject.addProperty("towho",nickname);
+                BasicDBObject idObj = new BasicDBObject("id", groupleaderid);
+                List<Map<String, Object>> list3 = mongoDao.queryByDoc(db, table3, idObj);
+                String nickname = list3.get(0).get("username").toString();
+                jsonObject.addProperty("towho", nickname);
+                if (mongoDao.queryByDoc(db, table2, userIdObj).size() == 0) {
+                    resStr = "申请成功！";
+                    jsonObject1.addProperty("message",resStr);
+                    System.out.println(resStr);
+                } else {
+                    resStr = "您已经在这个小组了！";
+                    jsonObject1.addProperty("message",resStr);
+                    System.out.println(resStr);
+                    return ;
+                }
             }
             String json2 = new Gson().toJson(jsonObject);
             Message message = new Gson().fromJson(json2, Message.class);
@@ -104,7 +117,8 @@ public class AddMessagesServlet extends HttpServlet {
         try {
             resp.setContentType("application/json;charset=utf-8");
             PrintWriter out = resp.getWriter();
-            out.print(resStr);
+            String toJson = new Gson().toJson(jsonObject1);
+            out.print(toJson);
         } catch (Exception e) {
             e.printStackTrace();
         }

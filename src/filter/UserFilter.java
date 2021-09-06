@@ -21,6 +21,7 @@ public class UserFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest=(HttpServletRequest)servletRequest;
        Object user = httpServletRequest.getSession().getAttribute("User");
+       System.out.println(user);
         if (user ==null){
             //不放行
             System.out.println("拦截器启动 请先登陆");

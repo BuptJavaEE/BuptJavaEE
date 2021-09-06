@@ -91,7 +91,7 @@ public class groupDaoImpl implements groupDao {
             for (int k = 0; k < list2.size(); k++) {
                 groupleader = Integer.parseInt(list2.get(0).get("groupleader").toString());
             }
-            System.out.println("组长 "+groupleader);
+            System.out.println("组长 " + groupleader);
             BasicDBObject userIdObj = new BasicDBObject("id", id);
             if (mongoDao.queryByDoc(db, table1, userIdObj).size() == 0) {
                 //没有用户就插入
@@ -101,7 +101,7 @@ public class groupDaoImpl implements groupDao {
                 jsonObject.addProperty("id", id);
                 String json = new Gson().toJson(jsonObject);
                 Document document = Document.parse(json);
-                System.out.println("插入数据： "+json);
+                System.out.println("插入数据： " + json);
                 mongoDao.insert(db, table1, document);
                 resStr = "申请成功！";
             } else {
