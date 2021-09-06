@@ -62,9 +62,7 @@ public class AddMessagesServlet extends HttpServlet {
             JsonObject jsonObject = JsonParser.parseString(acceptjson).getAsJsonObject();
             jsonObject.addProperty("date", date.toString());
             jsonObject.addProperty("standardDate", times);
-            String textno = jsonObject.get("textno").getAsString();
             String username = jsonObject.get("username").getAsString();
-            String groupid = jsonObject.get("groupid").getAsString();
             BasicDBObject userNameObj = new BasicDBObject("username", username);
             MongoDatabase db = MongoHelper.getMongoDataBase();
             MongoDaoImpl mongoDao = new MongoDaoImpl();
@@ -77,11 +75,12 @@ public class AddMessagesServlet extends HttpServlet {
             //判断
             if (jsonObject.get("type").getAsString().equals("pass")) {
                 groupDao groupDao = new groupDaoImpl();
+                String groupid = jsonObject.get("groupid").getAsString();
                 resStr = groupDao.AddMemberToGroup(groupid, username);
-            } else if (jsonObject.get("type").getAsString().equals("refuse")) {
-
-            } else if (jsonObject.get("type").getAsString().equals("apply")) {
+            }
+            else if (jsonObject.get("type").getAsString().equals("apply")) {
                 String table2 = "group";
+                String groupid = jsonObject.get("groupid").getAsString();
                 BasicDBObject groupidObj = new BasicDBObject("groupid", groupid);
                 BasicDBObject andObj = new BasicDBObject("$and", Arrays.asList(groupidObj,userIdObj));
                 List<Map<String, Object>> list2 = mongoDao.queryByDoc(db, table2, groupidObj);
