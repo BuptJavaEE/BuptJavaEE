@@ -7,6 +7,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
 import dao.CommentDao;
 import dao.impl.ArticleDaoImpl;
 import dao.impl.CommentDaoImpl;
@@ -24,10 +25,7 @@ import utils.MongoHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class test {
     @Test
@@ -224,6 +222,30 @@ public class test {
         MongoDao mongoDao = new MongoDaoImpl();
         try {
             System.out.println(mongoDao.queryByDoc(db,table,basicDBObject).size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void test8(){
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "comment";
+        BasicDBObject usernameObj = new BasicDBObject("username","初号机");
+        BasicDBObject resObj = usernameObj.append("textno","1");
+        MongoCollection<Document> collection = db.getCollection(table);
+        DeleteResult deleteManyResult = collection.deleteMany(resObj);
+        deleteManyResult.getDeletedCount();
+    }
+    @Test
+    public void test9(){
+        MongoDatabase db = MongoHelper.getMongoDataBase();
+        String table = "group";
+        BasicDBObject userIdObj = new BasicDBObject("id",3082);
+        BasicDBObject grouIdObj = new BasicDBObject("groupid","1");
+        BasicDBObject andObj = new BasicDBObject("$and", Arrays.asList(userIdObj,grouIdObj));
+        MongoDaoImpl mongoDao = new MongoDaoImpl();
+        try {
+            System.out.println(mongoDao.queryByDoc(db,table,andObj));
         } catch (Exception e) {
             e.printStackTrace();
         }
