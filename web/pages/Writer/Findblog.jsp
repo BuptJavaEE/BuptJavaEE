@@ -137,7 +137,7 @@
             <div class="detail"><span class="glyphicon glyphicon-star-empty"></span>&nbsp;{{blog.averagepoint}}</div>
             <div class="detail"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;{{blog.browsertimes}}</div>
             <div class="detail"><span class="glyphicon glyphicon-comment"></span>&nbsp;{{blog.commentCount}}</div>
-            <button class="butt" v-on:click="joinBlog(blog.textname,blog.textno)"><span class="glyphicon glyphicon-user"></span>加入</button>
+            <button class="butt" v-on:click="joinBlog(blog.textname,blog.textno,blog.groupid)"><span class="glyphicon glyphicon-user"></span>加入</button>
             <button class="butt" v-on:click="goComment(blog.textname,blog.content,'true',blog.textno)"><span class="glyphicon glyphicon-pencil"></span>评论</button>
             <br/>
         </div>
@@ -172,20 +172,16 @@
                 localStorage.setItem('blog', JSON.stringify(commentblog))
                 window.location.href = "pages/Writer/Comment.jsp"
             },
-            joinBlog(title,textno){
+            joinBlog(title,textno,groupid){
                 //发送组队申请
-                alert("申请已发送")
-                var message = {type:'apply',title:title,textno:textno,username:'<%=loginUser.getUsername()%>',nickname:'<%=loginUser.getNickname()%>'}
+
+                var message = {type:'apply',groupid:groupid,title:title,textno:textno,username:'<%=loginUser.getUsername()%>',nickname:'<%=loginUser.getNickname()%>'}
                 console.log(message)
-                this.$http.post("addmessagesservlet",message).then(function (data) {
-                }).then(function(data){
-                    console.log(data);
-                })
-                this.$http.get("addmessagesservlet").then(function(data){
-                    console.log(data);
-                })
-                $.getJSON("addmessagesservlet").then(function (data){
-                    console.log(data)
+
+                $.post("addmessagesservlet",JSON.stringify(message)).then(function(){
+                    $.getJSON("addmessagesservlet").then(function (data) {
+                        alert(data.message)
+                    })
                 })
             }
         },

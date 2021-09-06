@@ -150,14 +150,26 @@
             //评论发布
             postComments() {
                 if (this.user != '' && this.content != '') {
-                    var comment = {
-                        id: Date.now(),
-                        textno: this.textno,
-                        user: this.user,
-                        content: this.content,
-                        title: this.title,
-                        context: this.context,
-                        point: Number(this.point)
+                    if (this.context) {
+                        var comment = {
+                            id: Date.now(),
+                            textno: this.textno,
+                            user: this.user,
+                            content: this.content,
+                            title: this.title,
+                            context: this.context,
+                            point: Number(this.point)
+                        }
+                    }else {
+                        var comment = {
+                            id: Date.now(),
+                            textno: this.textno,
+                            user: this.user,
+                            content: this.content,
+                            title: this.title,
+                            context:"",
+                            point: Number(this.point)
+                        }
                     }
                     this.$http.post('addcommentsevlet', JSON.stringify(comment)).then(function (data) {//同时评论次数加一  //给文章的作者们发送一条message 告诉他们有人评论了
                         console.log(comment);
@@ -178,7 +190,7 @@
                 //loadcomment 要做判断 数据库中评论的title 要等于 这个title
                 this.$http.get("showcommentservlet")
                     .then(function (data) {
-                        this.list = data.body.slice(0, 10);
+                        this.list = data.body;
                         console.log(this.blogs);
                     })
             }
