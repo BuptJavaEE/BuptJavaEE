@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="static/css/My-box.css">
     <style>
         <%--基础个人信息美化--%>
-        .userHead {
+        #preview {
             background: white;
             border: 3px solid #ddd;
             border-radius: 4px;
@@ -179,7 +179,7 @@
     <br/>
     <br/>
     <p class="message">个人信息</p>
-    <img class="userHead" src="static/img/head.jpeg" width="100" height="100">
+    <img id="preview"  src="static/img/head.jpeg" width="100" height="100"/></div>
     <p class="userNickname"><span class="glyphicon glyphicon-user"></span> <%=loginUser.getNickname()%>
     </p>
     <span class="label label-default">账号用户名:<%=loginUser.getUsername()%></span>
@@ -187,19 +187,96 @@
     <a href="pages/User/login.html">
         <button class="butt">登出</button>
     </a>
+<%--更改功能--%>
+    </div>
+    <button class="butt" id = "c"  onMouseOver="yo()" onclick="myFunction()">修改内容</button>
+    <button class="butt" id = "d" onclick="myFunction()" >修改昵称</button>
+    <button class="butt" id = "f" onMouseOver="yo1()"  >修改头像</button>
+    </div>
+    <input type=file name="doc" id="doc" onchange="setImagePreview2();">
+    <div id="localImag">
 
+    <script>
+        function myFunction(){
+            var x;
+            var person=prompt("你要改的新昵称","<%=loginUser.getNickname()%>");
+
+        }
+        function setImagePreview2() {
+            var docObj=document.getElementById("doc");
+            var imgObjPreview=document.getElementById("preview");
+            if(docObj.files && docObj.files[0]){
+                //直接设img属性
+                imgObjPreview.style.display = 'block';
+                imgObjPreview.style.width = '160px';
+                imgObjPreview.style.height = '90px';
+                //imgObjPreview.src = docObj.files[0].getAsDataURL();
+                //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+                imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+            }else{
+                //IE下，伸缩
+                docObj.select();
+                var imgSrc = document.selection.createRange().text;
+                var localImagId = document.getElementById("localImag");
+                //置初始大小
+                localImagId.style.width = "160px";
+                localImagId.style.height = "90px";
+                //没什么用的一个验证
+                try{
+                    localImagId.style.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                    localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                }catch(e){
+                    alert("您上传的图片格式不正确，请重新选择!");
+                    return false;
+                }
+                imgObjPreview.style.display = 'none';
+                document.selection.empty();
+            }
+            return true;
+        }
+        var k=0;
+        var k1=0;
+        $("#doc").hide();
+        $("#d").hide();
+        $("#f").hide();
+        function yo(){
+            if(k==0){
+                $("#d").show();
+                $("#f").show();
+                k=1;
+            }
+            else{
+                $("#d").hide();
+                $("#f").hide();
+                k=0;
+            }
+        }
+        function yo1(){
+            if(k1==0){
+
+                $("#doc").show();
+                k1=1;
+            }
+            else{
+
+                $("#doc").hide();
+                k1=0;
+            }
+        }
+
+    </script>
 <%--气泡样式--%>
-    <ul class="bg-bubbles">
-        <li>Java</li>
-        <li>Jdbc</li>
-        <li>Tomcat</li>
-        <li>Mongodb</li>
-        <li>Mysql</li>
-        <li>Bootstrap</li>
-        <li>Vue</li>
-        <li>Node</li>
-        <li>Collaborater</li>
-        <li>SCSS</li>
+    <ul class="bg-bubbles" style="overflow-y: hidden">
+        <li>无中心力量</li>
+        <li>共同创作</li>
+        <li>彼此公开</li>
+        <li>编辑反馈</li>
+        <li>重视想法</li>
+        <li>有机分配</li>
+        <li>智慧集中</li>
+        <li>成果共享</li>
+        <li>深度</li>
+        <li>质量</li>
     </ul>
 </nav>
 <%--文章搜索展示端--%>
@@ -275,9 +352,9 @@
     }
 
     //缺servlet响应
-    function refuse(username, nickname, textno, title, groupid) {
+    function refuse(username, nickname, textno, title) {
         //1。向被拒绝的人发送该message 告知他申请被拒绝了
-        var message = {type: 'refuse', username: username, textno: textno, nickname: nickname, title: title,groupid:groupid}
+        var message = {type: 'refuse', username: username, textno: textno, nickname: nickname, title: title}
         console.log(message)
         $.post("addmessagesservlet", JSON.stringify(message));
     }
@@ -306,7 +383,7 @@
                     if (message.username == "<%=loginUser.getUsername()%>") {
 
                     } else if (message.towho == "<%=loginUser.getUsername()%>") {
-                        var strVar = "<div class=\"alert status-secondary\" id=\"" + message.date + "\">" + message.nickname + "申请加入您的《" + message.title + "》文章与您的小组一起写作<button class='access' onclick='access(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\",\"" + message.groupid + "\")'>接受</button><button class='refuse' onclick='refuse(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title +"\""+message.groupid +"\")'>拒绝</button><br/><span class=\"glyphicon glyphicon-time\">" + message.standardDate + "</span></div>"
+                        var strVar = "<div class=\"alert status-secondary\" id=\"" + message.date + "\">" + message.nickname + "申请加入您的《" + message.title + "》文章与您的小组一起写作<button class='access' onclick='access(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title + "\",\"" + message.groupid + "\")'>接受</button><button class='refuse' onclick='refuse(\"" + message.username + "\",\"" + message.nickname + "\",\"" + message.textno + "\",\"" + message.title +"\")'>拒绝</button><br/><span class=\"glyphicon glyphicon-time\">" + message.standardDate + "</span></div>"
                         $(".alerts").prepend(strVar);
                     }
 

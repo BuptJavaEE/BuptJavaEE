@@ -38,7 +38,7 @@
 %>
 <%@include file="headleader.jsp" %>
 <%--背景--%>
-<div id="top-image"></div>
+<%--<div id="top-image"></div>--%>
 <%--  温馨提示--%>
 <div class="reminder">
     <div class="text">
@@ -61,15 +61,29 @@
         <h2 style="float: right">作者:赵，钱，孙，李</h2>
     </div>
     <div id="comment">
-        <ul class="list-group">
-            <li class="list-group-item" v-for="item in list" :key="item.id">
-                <span class="badge">评论人：{{ item.username}}</span>
-                <div>{{item.content}}</div>
-                <div style="text-align: center">🕙{{item.date}}</div>
-            </li>
-        </ul>
+<%--        <ul class="list-group">--%>
+<%--            <li class="list-group-item" v-for="item in list" :key="item.id">--%>
+<%--                <span class="badge">评论人：{{ item.username}}</span>--%>
+<%--                <div>{{item.content}}</div>--%>
+<%--                <div style="text-align: center">🕙</div>--%>
+<%--            </li>--%>
+<%--        </ul>--%>
+        <div class="box">
+            <ul id="first-list">
+                <li  v-for="item in list" :key="item.id">
+                    <span></span>
+                    <div class="title">《评论》</div>
+                    <div class="info"> {{ item.content }}</div>
+                    <div class="name">{{ item.username }}</div>
+                    <div class="time">
+                        <span>{{item.date.slice(0,10)}}<sup></sup></span>
+                        <span>{{item.date.slice(10,20)}}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <%--作品评论区--%>
-        <div v-show="permission === 'true'">
+        <div class="container-comment" v-show="permission === 'true'">
             <div class="form-group">
                 <label>评论人：</label>
                 <input disabled="disabled" type="text" class="form-control" v-model="user">
@@ -212,18 +226,129 @@
     })
 </script>
 <style>
-    #comment {
+    body{
+        margin: 0;
+        padding: 0;
+        background-image: url(static/img/commentback.JPG);
+        background-repeat: no-repeat;
+        background-size:cover;  /* 让背景图基于容器大小伸缩 */
+        background-attachment:fixed;
+        font-family: arial
+    }
+    .list-group{
         width: 40%;
         float: right;
-        padding: 10px;
+        margin: 10px;
     }
-
-    #blog {
+    .container-comment{
+        margin: 20px;
+        width: 55%;
+        float: left;
+        box-shadow: 10px 10px 5px #888888;
+        /*background: white;*/
+    }
+    #blog{
+        margin: 20px;
         width: 55%;
         float: left;
         box-shadow: 10px 10px 5px #888888;
         background: white;
     }
+    .box{
+        float: right;
+        /*margin:0 10%;*/
+        width: 40%;
+        height: 800px;
+        overflow-y:scroll;
+        padding: 10px 0 40px 60px
+
+    }
+
+    .box ul{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        transition: all 0.5s linear;
+        top:0
+    }
+
+    .box ul:last-of-type{top:80px}
+
+    .box ul:before{
+        content: "";
+        display: block;
+        width: 0;
+        height: 100%;
+        border:1px dashed #fff;
+        position: absolute;
+        top:0;
+        left:30px
+    }
+
+    .box ul li{
+        margin: 20px 60px 60px;
+        position: relative;
+        padding: 10px 20px;
+        background:rgba(255, 255, 255, 0.3);
+        color:#333333;
+        border-radius: 10px;
+        line-height: 20px;
+    }
+
+
+    .box ul li > span{
+        content: "";
+        display: block;
+        width: 0;
+        height: 100%;
+        border:1px solid #fff;
+        position: absolute;
+        top:0;
+        left:-30px
+    }
+
+    .box ul li > span:before,.box ul li > span:after{
+        content: "";
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background:#91b7de;
+        border:2px solid #fff;
+        position: absolute;
+        left:-5px
+    }
+
+    .box ul li > span:before{top:-10px}
+    .box ul li > span:after{top:95%}
+
+    .box .title{
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 5px
+    }
+    .box .info:first-letter{text-transform: capitalize;line-height: 1.7}
+
+    .box .name{
+        margin-top: 10px;
+        text-transform: capitalize;
+        font-style: italic;
+        text-align: right;
+        margin-right: 20px
+    }
+
+
+    .box .time span{
+        position: absolute;
+        left: -100px;
+        color:#333333;
+        font-size:80%;
+        font-weight: bold;
+    }
+    .box .time span:first-child{top:-16px}
+    .box .time span:last-child{top:94%}
+
 </style>
 <%--    温馨提示--%>
 <script src="static/script/roll-script-teacher.js"></script>

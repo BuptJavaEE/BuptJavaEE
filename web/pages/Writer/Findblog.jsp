@@ -155,7 +155,7 @@
         },
         created(){
             this.$http.get('showallarticleservlet').then(function(data){
-                this.blogs = data.body.slice(0,10);
+                this.blogs = data.body;
                 console.log(this.blogs);
             })
         },
