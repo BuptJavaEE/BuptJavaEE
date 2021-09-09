@@ -208,8 +208,8 @@
             if(docObj.files && docObj.files[0]){
                 //直接设img属性
                 imgObjPreview.style.display = 'block';
-                imgObjPreview.style.width = '160px';
-                imgObjPreview.style.height = '90px';
+                imgObjPreview.style.width = '100px';
+                imgObjPreview.style.height = '100px';
                 //imgObjPreview.src = docObj.files[0].getAsDataURL();
                 //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
                 imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);

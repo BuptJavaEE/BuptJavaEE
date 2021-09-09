@@ -55,24 +55,27 @@
 <%--    --%>
 <%--评论展示区--%>
 <div id="tmpl">
-    <div id="blog" style="margin: 10px">
-        <h1>{{title}}</h1>
-        <h4 style="white-space: pre-wrap">{{context}}</h4>
-        <h2 style="float: right">作者:赵，钱，孙，李</h2>
+<%--    <div id="blog" style="margin: 10px">--%>
+<%--        <h1>{{title}}</h1>--%>
+<%--        <h4 style="white-space: pre-wrap">{{context}}</h4>--%>
+<%--        <h2 style="float: right">作者:赵，钱，孙，李</h2>--%>
+<%--    </div>--%>
+    <div class="card">
+        <div class="header" style="white-space: pre-wrap">
+            <h1>{{title}}</h1>
+            {{context}}
+        </div>
+
+        <div class="container">
+            <p>赵，钱，孙，李</p>
+        </div>
     </div>
     <div id="comment">
-<%--        <ul class="list-group">--%>
-<%--            <li class="list-group-item" v-for="item in list" :key="item.id">--%>
-<%--                <span class="badge">评论人：{{ item.username}}</span>--%>
-<%--                <div>{{item.content}}</div>--%>
-<%--                <div style="text-align: center">🕙</div>--%>
-<%--            </li>--%>
-<%--        </ul>--%>
         <div class="box">
             <ul id="first-list">
                 <li  v-for="item in list" :key="item.id">
                     <span></span>
-                    <div class="title">《评论》</div>
+                    <div class="title">{{item.point}}分</div>
                     <div class="info"> {{ item.content }}</div>
                     <div class="name">{{ item.username }}</div>
                     <div class="time">
@@ -95,7 +98,7 @@
             <div class="form-group">
                 <div class="rating">
                     <!--标题展示        -->
-                    <h2 class="text">综合评分{{point}}</h2>
+                    <h2 class="text" style="float: left;font-size: 15px">综合评分{{point}}:</h2>
                     <%--                <label>评分：</label>--%>
                     <!-- 选择表情       -->
                     <input type="radio" name="star1" id="star1" value="10" v-model="point">
@@ -137,7 +140,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="button" value="发表评论" class="btn btn-default" style="width: 100%" @click="postComments">
+                <input type="button" value="发表评论" class="butt" style="width: 100%" @click="postComments">
             </div>
         </div>
     </div>
@@ -187,6 +190,7 @@
                     }
                     this.$http.post('addcommentsevlet', JSON.stringify(comment)).then(function (data) {//同时评论次数加一  //给文章的作者们发送一条message 告诉他们有人评论了
                         console.log(comment);
+                        this.content="";
                         this.loadComments();
                     })
                     //
@@ -348,7 +352,81 @@
     }
     .box .time span:first-child{top:-16px}
     .box .time span:last-child{top:94%}
+    div.card {
+        margin: 20px;
+        width: 55%;
+        /*height: 700px;*/
+        max-height: 800px;
+        overflow-x: hidden;
+        /*overflow-y: scroll;*/
+        float: left;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        text-align: center;
+    }
 
+    div.header {
+        opacity: 0.5;
+        background:#91b7de;
+        color: white;
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    div.container {
+        font-style: italic;
+        padding: 10px;
+        font-size: 15px;
+    }
+    textarea{
+        -webkit-writing-mode: horizontal-tb !important;
+        /*font-style: ;*/
+        /*font-variant-ligatures: ;*/
+        /*font-variant-caps: ;*/
+        /*font-variant-numeric: ;*/
+        /*font-variant-east-asian: ;*/
+        /*font-weight: ;*/
+        /*font-stretch: ;*/
+        /*font-size: ;*/
+        font-family: monospace;
+        text-rendering: auto;
+        color: -internal-light-dark(black, white);
+        letter-spacing: normal;
+        word-spacing: normal;
+        line-height: normal;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: start;
+        appearance: auto;
+        -webkit-rtl-ordering: logical;
+        resize: auto;
+        cursor: text;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+        column-count: initial !important;
+        margin: 0em;
+        border-width: 1px;
+        border-style: solid;
+        border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+        border-image: initial;
+        padding: 2px;
+    }
+    .butt {
+        font-size: 15px;
+        width: 100%;
+        height: 50px;
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+    }
+
+    .butt:hover {
+        font-size: 30px;
+        background-color: #008CBA;
+        color: white;
+    }
 </style>
 <%--    温馨提示--%>
 <script src="static/script/roll-script-teacher.js"></script>
