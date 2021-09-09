@@ -193,7 +193,10 @@
     <button class="butt" id = "d" onclick="myFunction()" >修改昵称</button>
     <button class="butt" id = "f" onMouseOver="yo1()"  >修改头像</button>
     </div>
+    <form action="loginservlet" method="post">
     <input type=file name="doc" id="doc" onchange="setImagePreview2();">
+        <input type="submit" value="提交"/>
+    </form>
     <div id="localImag">
 
     <script>
@@ -231,6 +234,7 @@
                 }
                 imgObjPreview.style.display = 'none';
                 document.selection.empty();
+
             }
             return true;
         }
